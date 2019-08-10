@@ -5,20 +5,20 @@
   
 
   
-  <title>Spring Cloud学习（1） | Khoing的博客</title>
+  <title>MySQL报错error1067 | Khoing的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
-<meta name="keywords" content="SpringCloud">
+  <meta name="description" content="Mysql 报错widows 无法启动MYSQL服务，error1067 重装 C:\Program Files\MySQL 检查C:\WINDOWS目录下是否有my.ini文件,将其删除 win+r，弹出运行程序窗口，然后输入regedit 删除HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\MySQL">
+<meta name="keywords" content="MySQL报错">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Cloud学习（1）">
-<meta property="og:url" content="http://yoursite.com/2019/08/10/SpringCloud学习（2)/index.html">
+<meta property="og:title" content="MySQL报错error1067">
+<meta property="og:url" content="http://yoursite.com/2019/08/10/MysqlError/index.html">
 <meta property="og:site_name" content="Khoing的博客">
-<meta property="og:description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
+<meta property="og:description" content="Mysql 报错widows 无法启动MYSQL服务，error1067 重装 C:\Program Files\MySQL 检查C:\WINDOWS目录下是否有my.ini文件,将其删除 win+r，弹出运行程序窗口，然后输入regedit 删除HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\MySQL">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-10T04:48:37.337Z">
+<meta property="og:updated_time" content="2019-08-10T08:09:47.577Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Cloud学习（1）">
-<meta name="twitter:description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
+<meta name="twitter:title" content="MySQL报错error1067">
+<meta name="twitter:description" content="Mysql 报错widows 无法启动MYSQL服务，error1067 重装 C:\Program Files\MySQL 检查C:\WINDOWS目录下是否有my.ini文件,将其删除 win+r，弹出运行程序窗口，然后输入regedit 删除HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\MySQL">
   
     <link rel="alternate" href="/atom.xml" title="Khoing的博客" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-SpringCloud学习（2)" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-MysqlError" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/08/10/SpringCloud学习（2)/" class="article-date">
-  <time datetime="2019-08-10T03:53:00.000Z" itemprop="datePublished">2019-08-10</time>
+    <a href="/2019/08/10/MysqlError/" class="article-date">
+  <time datetime="2019-08-10T08:08:27.525Z" itemprop="datePublished">2019-08-10</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spring Cloud学习（1）
+      MySQL报错error1067
     </h1>
   
 
@@ -91,45 +91,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SpringCloud学习（2）"><a href="#SpringCloud学习（2）" class="headerlink" title="SpringCloud学习（2）"></a>SpringCloud学习（2）</h1><h2 id="服务注册中心"><a href="#服务注册中心" class="headerlink" title="服务注册中心"></a>服务注册中心</h2><ol>
-<li>先建立父项目</li>
-<li>删除 src的文件，父项目用不到</li>
-<li>pom.xml<ol>
-<li>依赖 springboot 版本是 2.0.3</li>
-<li>有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材</li>
-<li>springcloud 用的版本是 Finchley</li>
-</ol>
-</li>
-<li>建立子项目，名字 eureka-server<br>在pom.xml添加依赖spring-cloud-starter-netflix-eureka-server</li>
-<li>EurekaServer 启动类。<br><br>这是一个 EurekaServer ，它扮演的角色是注册中心，用于注册各种微服务，以便于其他微服务找到和访问。 所以 Eureka 这个单词是 “找到啦” 的意思。<br>EurekaServer 本身就是个 Springboot 微服务, 所以它有 @SpringBootApplication 注解。<br>@EnableEurekaServer 表示这是个 EurekaServer 。</li>
-</ol>
-<ul>
-<li>aplicationSer配置文件中设置端口8761</li>
-</ul>
-<ol start="6">
-<li><p>配置文件<br><br>提供 eureka 的相关信息。</p>
-<ul>
-<li><p>hostname: localhost 表示主机名称。</p>
-</li>
-<li><p>registerWithEureka：false. 表示是否注册到服务器。 因为它本身就是服务器，所以就无需把自己注册到服务器了。</p>
-</li>
-<li><p>fetchRegistry: false. 表示是否获取服务器的注册信息，和上面同理，这里也设置为 false。</p>
-</li>
-<li><p>defaultZone： http://${eureka.instance.hostname}:${server.port}/eureka/ 自己作为服务器，公布出来的地址。 比如后续某个微服务要把自己注册到 - eureka server, 那么就要使用这个地址： <a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a></p>
-</li>
-<li><p>name: eurka-server 表示这个微服务本身的名称是 eureka-server</p>
-</li>
+        <h1 id="Mysql-报错"><a href="#Mysql-报错" class="headerlink" title="Mysql 报错"></a>Mysql 报错</h1><p>widows 无法启动MYSQL服务，error1067</p>
+<h1 id="重装"><a href="#重装" class="headerlink" title="重装"></a>重装</h1><ul>
+<li>C:\Program Files\MySQL</li>
+<li>检查C:\WINDOWS目录下是否有my.ini文件,将其删除</li>
+<li>win+r，弹出运行程序窗口，然后输入<br>regedit<ul>
+<li>删除<br>HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\MySQL</li>
 </ul>
 </li>
-</ol>
+<li>这个文件夹，默认是隐藏的，显示隐藏，C:\ProgramData\MySQL Server 5.5</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringCloud学习（2)/" data-id="cjz5dv7vt000a2wts1vut8hme" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/MysqlError/" data-id="cjz5dv7sz00002wts4vbsfti2" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li></ul>
 
     </footer>
   </div>
@@ -137,19 +116,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/08/10/SpringBoot学习笔记1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/10/idea中连接mysql/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Spring Cloud学习（1）
+          IDEA连接数据库
         
       </div>
     </a>
   
   
-    <a href="/2019/08/10/Markdown-notes/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/08/10/SpringBoot学习笔记1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Markdown  notes</div>
+      <div class="article-nav-title">Spring Cloud学习（1）</div>
     </a>
   
 </nav>

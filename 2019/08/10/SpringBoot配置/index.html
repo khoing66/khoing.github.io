@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>SpringBoot配置 | Khoing的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SpringBoot连接MySQL数据库 在pom.xml中添加maven依赖，代码如下 12345678910&amp;lt;dependency&amp;gt;           &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;           &amp;lt;artifactId&amp;gt;spring-boot-starter-jdbc&amp;lt;/ar">
+<meta name="keywords" content="SpringBoot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot配置">
+<meta property="og:url" content="http://yoursite.com/2019/08/10/SpringBoot配置/index.html">
+<meta property="og:site_name" content="Khoing的博客">
+<meta property="og:description" content="SpringBoot连接MySQL数据库 在pom.xml中添加maven依赖，代码如下 12345678910&amp;lt;dependency&amp;gt;           &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;           &amp;lt;artifactId&amp;gt;spring-boot-starter-jdbc&amp;lt;/ar">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-10T10:12:29.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot配置">
+<meta name="twitter:description" content="SpringBoot连接MySQL数据库 在pom.xml中添加maven依赖，代码如下 12345678910&amp;lt;dependency&amp;gt;           &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;           &amp;lt;artifactId&amp;gt;spring-boot-starter-jdbc&amp;lt;/ar">
+  
+    <link rel="alternate" href="/atom.xml" title="Khoing的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Khoing的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">关于学习中遇到的问题以及笔记</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SpringBoot配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/10/SpringBoot配置/" class="article-date">
+  <time datetime="2019-08-10T10:11:34.948Z" itemprop="datePublished">2019-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringBoot配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h1><h2 id="连接MySQL数据库"><a href="#连接MySQL数据库" class="headerlink" title="连接MySQL数据库"></a>连接MySQL数据库</h2><ol>
+<li><p>在pom.xml中添加maven依赖，代码如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;           </span><br><span class="line">&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;           </span><br><span class="line">&lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;       </span><br><span class="line">&lt;/dependency&gt;       </span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;           </span><br><span class="line">&lt;groupId&gt;mysql&lt;/groupId&gt;           </span><br><span class="line">&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;           </span><br><span class="line">&lt;scope&gt;runtime&lt;/scope&gt;       </span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改application.properties配置文件，添加如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.url=jdbc:mysql:<span class="comment">//localhost:3306/test</span></span><br><span class="line">spring.datasource.username=root</span><br><span class="line">spring.datasource.password=root</span><br><span class="line">spring.datasource.driver-<span class="class"><span class="keyword">class</span>-<span class="title">name</span></span>=com.mysql.jdbc.Driver</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="自动生成代码"><a href="#自动生成代码" class="headerlink" title="自动生成代码"></a>自动生成代码</h2><ol>
+<li><p>MyBatis官方提供了逆向工程 mybatis-generator，可以针对数据库表自动生成MyBatis执行所需要的代码（如Mapper.java、Mapper.xml、POJO）</p>
+</li>
+<li><p>pom.xml中配置plugin</p>
+<ul>
+<li><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugins&gt;</span><br><span class="line">    &lt;!-- mybatis-generator --&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">            &lt;!-- mybatis-generator的配置文件，根据情况调整位置 --&gt;</span><br><span class="line">            &lt;configurationFile&gt;src/main/resources/generatorConfig.xml&lt;/configurationFile&gt;</span><br><span class="line">            &lt;verbose&gt;true&lt;/verbose&gt;</span><br><span class="line">            &lt;overwrite&gt;true&lt;/overwrite&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">        &lt;executions&gt;</span><br><span class="line">            &lt;execution&gt;</span><br><span class="line">                &lt;id&gt;</span><br><span class="line">                Generate MyBatis Artifacts</span><br><span class="line">                &lt;/id&gt;</span><br><span class="line">                &lt;goals&gt;</span><br><span class="line">                    &lt;goal&gt;generate&lt;/goal&gt;</span><br><span class="line">                &lt;/goals&gt;</span><br><span class="line">            &lt;/execution&gt;</span><br><span class="line">        &lt;/executions&gt;</span><br><span class="line"></span><br><span class="line">        &lt;dependencies&gt;</span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;</span><br><span class="line">                org.mybatisgenerator</span><br><span class="line">                &lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;</span><br><span class="line">                mybatis-generator-core</span><br><span class="line">                &lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;1.3.2&lt;/version&gt;</span><br><span class="line">            &lt;/dependency&gt;</span><br><span class="line">        &lt;/dependencies&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate 指令</p>
+<h2 id="lomboc插件"><a href="#lomboc插件" class="headerlink" title="lomboc插件"></a>lomboc插件</h2></li>
+<li><p>只需要在类前面加个@Data,就可以省去pojo的get、set方法</p>
+</li>
+<li><p>pom.xml中增加依赖</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="thymeleaf"><a href="#thymeleaf" class="headerlink" title="thymeleaf"></a>thymeleaf</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;</span><br><span class="line">        org.springframework.boot</span><br><span class="line">    &lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;</span><br><span class="line">        spring-boot-starter-thymeleaf</span><br><span class="line">    &lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/10/SpringBoot配置/" data-id="cjz5dv7ut00012wtsqsrmft61" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/10/idea中连接mysql/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">IDEA连接数据库</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/10/SpringBoot配置/">SpringBoot配置</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/10/idea中连接mysql/">IDEA连接数据库</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/10/MysqlError/">MySQL报错error1067</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/10/SpringBoot学习笔记1/">Spring Cloud学习（1）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/10/SpringCloud学习（2)/">Spring Cloud学习（1）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Khoing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
