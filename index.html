@@ -66,63 +66,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-SpringCloud学习（2)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/10/SpringCloud学习（2)/" class="article-date">
-  <time datetime="2019-08-10T04:32:51.989Z" itemprop="datePublished">2019-08-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SpringCloud学习（2）"><a href="#SpringCloud学习（2）" class="headerlink" title="SpringCloud学习（2）"></a>SpringCloud学习（2）</h1><h2 id="服务注册中心"><a href="#服务注册中心" class="headerlink" title="服务注册中心"></a>服务注册中心</h2><ol>
-<li>先建立父项目</li>
-<li>删除 src的文件，父项目用不到</li>
-<li>pom.xml<ol>
-<li>依赖 springboot 版本是 2.0.3</li>
-<li>有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材</li>
-<li>springcloud 用的版本是 Finchley</li>
-</ol>
-</li>
-<li>建立子项目，名字 eureka-server<br>在pom.xml添加依赖spring-cloud-starter-netflix-eureka-server</li>
-<li>EurekaServer 启动类。<br><br>这是一个 EurekaServer ，它扮演的角色是注册中心，用于注册各种微服务，以便于其他微服务找到和访问。 所以 Eureka 这个单词是 “找到啦” 的意思。<br>EurekaServer 本身就是个 Springboot 微服务, 所以它有 @SpringBootApplication 注解。<br>@EnableEurekaServer 表示这是个 EurekaServer 。</li>
-</ol>
-<ul>
-<li>aplicationSer配置文件中设置端口8761</li>
-</ul>
-<ol start="6">
-<li><p>配置文件<br><br>提供 eureka 的相关信息。</p>
-<ul>
-<li><p>hostname: localhost 表示主机名称。</p>
-</li>
-<li><p>registerWithEureka：false. 表示是否注册到服务器。 因为它本身就是服务器，所以就无需把自己注册到服务器了。</p>
-</li>
-<li><p>fetchRegistry: false. 表示是否获取服务器的注册信息，和上面同理，这里也设置为 false。</p>
-</li>
-<li><p>defaultZone： http://${eureka.instance.hostname}:${server.port}/eureka/ 自己作为服务器，公布出来的地址。 比如后续某个微服务要把自己注册到 - eureka server, 那么就要使用这个地址： <a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a></p>
-</li>
-<li><p>name: eurka-server 表示这个微服务本身的名称是 eureka-server</p>
-</li>
-</ul>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringCloud学习（2)/" data-id="cjz520tg10000sgtsc4qyusha" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-SpringBoot学习笔记1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/10/SpringBoot学习笔记1/" class="article-date">
@@ -204,9 +147,80 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringBoot学习笔记1/" data-id="cjz520tpg0001sgts1zosiul0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/SpringBoot学习笔记1/" data-id="cjz52dkty0001cotsr7go3gbd" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SpringCloud学习（2)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/10/SpringCloud学习（2)/" class="article-date">
+  <time datetime="2019-08-10T03:53:00.000Z" itemprop="datePublished">2019-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/10/SpringCloud学习（2)/">Spring Cloud学习（1）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringCloud学习（2）"><a href="#SpringCloud学习（2）" class="headerlink" title="SpringCloud学习（2）"></a>SpringCloud学习（2）</h1><h2 id="服务注册中心"><a href="#服务注册中心" class="headerlink" title="服务注册中心"></a>服务注册中心</h2><ol>
+<li>先建立父项目</li>
+<li>删除 src的文件，父项目用不到</li>
+<li>pom.xml<ol>
+<li>依赖 springboot 版本是 2.0.3</li>
+<li>有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材</li>
+<li>springcloud 用的版本是 Finchley</li>
+</ol>
+</li>
+<li>建立子项目，名字 eureka-server<br>在pom.xml添加依赖spring-cloud-starter-netflix-eureka-server</li>
+<li>EurekaServer 启动类。<br><br>这是一个 EurekaServer ，它扮演的角色是注册中心，用于注册各种微服务，以便于其他微服务找到和访问。 所以 Eureka 这个单词是 “找到啦” 的意思。<br>EurekaServer 本身就是个 Springboot 微服务, 所以它有 @SpringBootApplication 注解。<br>@EnableEurekaServer 表示这是个 EurekaServer 。</li>
+</ol>
+<ul>
+<li>aplicationSer配置文件中设置端口8761</li>
+</ul>
+<ol start="6">
+<li><p>配置文件<br><br>提供 eureka 的相关信息。</p>
+<ul>
+<li><p>hostname: localhost 表示主机名称。</p>
+</li>
+<li><p>registerWithEureka：false. 表示是否注册到服务器。 因为它本身就是服务器，所以就无需把自己注册到服务器了。</p>
+</li>
+<li><p>fetchRegistry: false. 表示是否获取服务器的注册信息，和上面同理，这里也设置为 false。</p>
+</li>
+<li><p>defaultZone： http://${eureka.instance.hostname}:${server.port}/eureka/ 自己作为服务器，公布出来的地址。 比如后续某个微服务要把自己注册到 - eureka server, 那么就要使用这个地址： <a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a></p>
+</li>
+<li><p>name: eurka-server 表示这个微服务本身的名称是 eureka-server</p>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/10/SpringCloud学习（2)/" data-id="cjz52dkuu0006cotspacbdiqv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+
     </footer>
   </div>
   
@@ -265,9 +279,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/Markdown-notes/" data-id="cjz520tyb0002sgtsne9s1jyy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/Markdown-notes/" data-id="cjz52dktq0000cotstnozpw2n" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
+
     </footer>
   </div>
   
@@ -285,9 +301,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -306,11 +336,11 @@
       <ul>
         
           <li>
-            <a href="/2019/08/10/SpringCloud学习（2)/">(no title)</a>
+            <a href="/2019/08/10/SpringBoot学习笔记1/">Spring Cloud学习（1）</a>
           </li>
         
           <li>
-            <a href="/2019/08/10/SpringBoot学习笔记1/">Spring Cloud学习（1）</a>
+            <a href="/2019/08/10/SpringCloud学习（2)/">Spring Cloud学习（1）</a>
           </li>
         
           <li>
