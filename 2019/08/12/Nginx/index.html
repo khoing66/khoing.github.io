@@ -5,20 +5,20 @@
   
 
   
-  <title>Spring Cloud学习（1） | Khoing的博客</title>
+  <title>Nginx | Khoing的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
-<meta name="keywords" content="SpringCloud">
+  <meta name="description" content="Nginxnginx 概述 nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；nginx可以作为一个HTTP服务器进行网站的发布处理，另外nginx可以作为反向代理进行负载均衡的实现。  反向代理：  正向代理：比如说现实生活中去访问国外的网站，都会通过一个FQ操作，去找一个国外网站的代理服务器，我们将请求发送给代理服务器，">
+<meta name="keywords" content="Nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Cloud学习（1）">
-<meta property="og:url" content="http://yoursite.com/2019/08/10/SpringCloud学习（2)/index.html">
+<meta property="og:title" content="Nginx">
+<meta property="og:url" content="http://yoursite.com/2019/08/12/Nginx/index.html">
 <meta property="og:site_name" content="Khoing的博客">
-<meta property="og:description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
+<meta property="og:description" content="Nginxnginx 概述 nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；nginx可以作为一个HTTP服务器进行网站的发布处理，另外nginx可以作为反向代理进行负载均衡的实现。  反向代理：  正向代理：比如说现实生活中去访问国外的网站，都会通过一个FQ操作，去找一个国外网站的代理服务器，我们将请求发送给代理服务器，">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-10T04:48:37.337Z">
+<meta property="og:updated_time" content="2019-08-12T06:49:56.543Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Cloud学习（1）">
-<meta name="twitter:description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
+<meta name="twitter:title" content="Nginx">
+<meta name="twitter:description" content="Nginxnginx 概述 nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；nginx可以作为一个HTTP服务器进行网站的发布处理，另外nginx可以作为反向代理进行负载均衡的实现。  反向代理：  正向代理：比如说现实生活中去访问国外的网站，都会通过一个FQ操作，去找一个国外网站的代理服务器，我们将请求发送给代理服务器，">
   
     <link rel="alternate" href="/atom.xml" title="Khoing的博客" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-SpringCloud学习（2)" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Nginx" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/08/10/SpringCloud学习（2)/" class="article-date">
-  <time datetime="2019-08-10T03:53:00.000Z" itemprop="datePublished">2019-08-10</time>
+    <a href="/2019/08/12/Nginx/" class="article-date">
+  <time datetime="2019-08-12T06:49:56.490Z" itemprop="datePublished">2019-08-12</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spring Cloud学习（1）
+      Nginx
     </h1>
   
 
@@ -91,45 +91,52 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SpringCloud学习（2）"><a href="#SpringCloud学习（2）" class="headerlink" title="SpringCloud学习（2）"></a>SpringCloud学习（2）</h1><h2 id="服务注册中心"><a href="#服务注册中心" class="headerlink" title="服务注册中心"></a>服务注册中心</h2><ol>
-<li>先建立父项目</li>
-<li>删除 src的文件，父项目用不到</li>
-<li>pom.xml<ol>
-<li>依赖 springboot 版本是 2.0.3</li>
-<li>有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材</li>
-<li>springcloud 用的版本是 Finchley</li>
+        <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><h2 id="nginx-概述"><a href="#nginx-概述" class="headerlink" title="nginx 概述"></a>nginx 概述</h2><ul>
+<li><p>nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；nginx可以作为一个HTTP服务器进行网站的发布处理，另外nginx可以作为反向代理进行负载均衡的实现。</p>
+</li>
+<li><p>反向代理：</p>
+<ol>
+<li>正向代理：比如说现实生活中去访问国外的网站，都会通过一个FQ操作，去找一个国外网站的代理服务器，我们将请求发送给代理服务器，代理服务器去访问国外的网站，然后将访问到的数据传递给我们！正向代理最大的特点是客户端非常明确要访问的服务器地址；服务器只清楚请求来自哪个代理服务器，而不清楚来自哪个具体的客户端；正向代理模式屏蔽或者隐藏了真实客户端信息</li>
+<li>反向代理：例如淘宝网站，每天同时连接到网站的访问人数已经爆表，单个服务器远远不能满足人民日益增长的购买欲望了，此时就出现了一个大家耳熟能详的名词：分布式部署；也就是通过部署多台服务器来解决访问人数限制的问题；某宝网站中大部分功能也是直接使用nginx进行反向代理实现的，并且通过封装nginx和其他的组件之后起了个高大上的名字：Tengine，反向代理，主要用于服务器集群分布式部署的情况下，反向代理隐藏了服务器的信息！</li>
 </ol>
 </li>
-<li>建立子项目，名字 eureka-server<br>在pom.xml添加依赖spring-cloud-starter-netflix-eureka-server</li>
-<li>EurekaServer 启动类。<br><br>这是一个 EurekaServer ，它扮演的角色是注册中心，用于注册各种微服务，以便于其他微服务找到和访问。 所以 Eureka 这个单词是 “找到啦” 的意思。<br>EurekaServer 本身就是个 Springboot 微服务, 所以它有 @SpringBootApplication 注解。<br>@EnableEurekaServer 表示这是个 EurekaServer 。</li>
-</ol>
+<li><p>负载均衡：</p>
 <ul>
-<li>aplicationSer配置文件中设置端口8761</li>
-</ul>
-<ol start="6">
-<li><p>配置文件<br><br>提供 eureka 的相关信息。</p>
-<ul>
-<li><p>hostname: localhost 表示主机名称。</p>
-</li>
-<li><p>registerWithEureka：false. 表示是否注册到服务器。 因为它本身就是服务器，所以就无需把自己注册到服务器了。</p>
-</li>
-<li><p>fetchRegistry: false. 表示是否获取服务器的注册信息，和上面同理，这里也设置为 false。</p>
-</li>
-<li><p>defaultZone： http://${eureka.instance.hostname}:${server.port}/eureka/ 自己作为服务器，公布出来的地址。 比如后续某个微服务要把自己注册到 - eureka server, 那么就要使用这个地址： <a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a></p>
-</li>
-<li><p>name: eurka-server 表示这个微服务本身的名称是 eureka-server</p>
-</li>
+<li>指客户端发送的、nginx反向代理服务器接收到的请求数量，就是我们说的负载量。</li>
+<li>请求数量按照一定的规则进行分发到不同的服务器处理的规则，就是一种均衡规则。</li>
+<li>将服务器接收到的请求按照规则分发的过程，称为负载均衡。</li>
 </ul>
 </li>
+</ul>
+<h2 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h2><ul>
+<li>启动niginx服务器<ol>
+<li>可以双击nginx.exe</li>
+<li>假设nginx在d:/software/nginx目录下，那么就需要通过如下命令启动：<pre><code class="java">     cmd
+     cd d:/software/nginx
+     d:
+     start nginx
+```&lt;br&gt;
+ 关闭方式也是与之对应的
+`nginx -s stop`(widows ./nginx -s stop)
+</code></pre>
+</li>
 </ol>
+</li>
+</ul>
+<h2 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h2><ul>
+<li>所谓的动静分离就是指图片，css, js之类的都交给nginx来处理，nginx处理不了的，比如jsp 就交给tomcat来处理~<br>好处是nginx处理静态内容的吞吐量很高，比tomcat高多了，这样无形中提升了性能。</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://how2j.cn/k/nginx/nginx-share-session/1569.html" target="_blank" rel="noopener">nginx</a></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringCloud学习（2)/" data-id="cjz8b2ii20008mstshpkn0akf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/12/Nginx/" data-id="cjz8b2iiv000jmstsmokx82i3" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
 
     </footer>
   </div>
@@ -137,19 +144,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/08/10/MysqlError/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/12/WebSocket/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          MySQL报错error1067
+          WebSocket
         
       </div>
     </a>
   
   
-    <a href="/2019/08/10/SpringBoot学习笔记1/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/08/10/Springcloud全家桶/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Spring Cloud学习（1）</div>
+      <div class="article-nav-title"></div>
     </a>
   
 </nav>

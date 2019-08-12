@@ -5,20 +5,20 @@
   
 
   
-  <title>Spring Cloud学习（1） | Khoing的博客</title>
+  <title>Maven 父子项目 | Khoing的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
-<meta name="keywords" content="SpringCloud">
+  <meta name="description" content="Maven 父子项目 新建maven父项目  不要勾选create from archeType（注意不要勾选模板解释一下，父工程其实是空的工程，选用模板到时候还得去删 ） pom.xml 中要有&amp;lt;packaging&amp;gt;pom&amp;lt;/packaging&amp;gt; 和  1234&amp;lt;modules&amp;gt;    &amp;lt;module&amp;gt;childA&amp;lt;/module&amp;gt;">
+<meta name="keywords" content="Maven">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Cloud学习（1）">
-<meta property="og:url" content="http://yoursite.com/2019/08/10/SpringCloud学习（2)/index.html">
+<meta property="og:title" content="Maven 父子项目">
+<meta property="og:url" content="http://yoursite.com/2019/08/12/Maven父子项目/index.html">
 <meta property="og:site_name" content="Khoing的博客">
-<meta property="og:description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
+<meta property="og:description" content="Maven 父子项目 新建maven父项目  不要勾选create from archeType（注意不要勾选模板解释一下，父工程其实是空的工程，选用模板到时候还得去删 ） pom.xml 中要有&amp;lt;packaging&amp;gt;pom&amp;lt;/packaging&amp;gt; 和  1234&amp;lt;modules&amp;gt;    &amp;lt;module&amp;gt;childA&amp;lt;/module&amp;gt;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-10T04:48:37.337Z">
+<meta property="og:updated_time" content="2019-08-12T10:38:51.155Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Cloud学习（1）">
-<meta name="twitter:description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
+<meta name="twitter:title" content="Maven 父子项目">
+<meta name="twitter:description" content="Maven 父子项目 新建maven父项目  不要勾选create from archeType（注意不要勾选模板解释一下，父工程其实是空的工程，选用模板到时候还得去删 ） pom.xml 中要有&amp;lt;packaging&amp;gt;pom&amp;lt;/packaging&amp;gt; 和  1234&amp;lt;modules&amp;gt;    &amp;lt;module&amp;gt;childA&amp;lt;/module&amp;gt;">
   
     <link rel="alternate" href="/atom.xml" title="Khoing的博客" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-SpringCloud学习（2)" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Maven父子项目" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/08/10/SpringCloud学习（2)/" class="article-date">
-  <time datetime="2019-08-10T03:53:00.000Z" itemprop="datePublished">2019-08-10</time>
+    <a href="/2019/08/12/Maven父子项目/" class="article-date">
+  <time datetime="2019-08-12T10:38:51.108Z" itemprop="datePublished">2019-08-12</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spring Cloud学习（1）
+      Maven 父子项目
     </h1>
   
 
@@ -91,33 +91,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SpringCloud学习（2）"><a href="#SpringCloud学习（2）" class="headerlink" title="SpringCloud学习（2）"></a>SpringCloud学习（2）</h1><h2 id="服务注册中心"><a href="#服务注册中心" class="headerlink" title="服务注册中心"></a>服务注册中心</h2><ol>
-<li>先建立父项目</li>
-<li>删除 src的文件，父项目用不到</li>
-<li>pom.xml<ol>
-<li>依赖 springboot 版本是 2.0.3</li>
-<li>有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材</li>
-<li>springcloud 用的版本是 Finchley</li>
-</ol>
-</li>
-<li>建立子项目，名字 eureka-server<br>在pom.xml添加依赖spring-cloud-starter-netflix-eureka-server</li>
-<li>EurekaServer 启动类。<br><br>这是一个 EurekaServer ，它扮演的角色是注册中心，用于注册各种微服务，以便于其他微服务找到和访问。 所以 Eureka 这个单词是 “找到啦” 的意思。<br>EurekaServer 本身就是个 Springboot 微服务, 所以它有 @SpringBootApplication 注解。<br>@EnableEurekaServer 表示这是个 EurekaServer 。</li>
-</ol>
+        <h1 id="Maven-父子项目"><a href="#Maven-父子项目" class="headerlink" title="Maven 父子项目"></a>Maven 父子项目</h1><ol>
+<li><p>新建maven父项目</p>
 <ul>
-<li>aplicationSer配置文件中设置端口8761</li>
+<li>不要勾选create from archeType（注意不要勾选模板解释一下，父工程其实是空的工程，选用模板到时候还得去删 ）</li>
+<li>pom.xml 中要有<code>&lt;packaging&gt;pom&lt;/packaging&gt;</code></li>
+<li>和  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">    &lt;module&gt;childA&lt;/module&gt;</span><br><span class="line">    &lt;module&gt;childB&lt;/module&gt;</span><br><span class="line">&lt;/modules&gt;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<ol start="6">
-<li><p>配置文件<br><br>提供 eureka 的相关信息。</p>
+</li>
+<li><p>在父项文件名称右键new-&gt;module -&gt;勾选create from archeType</p>
 <ul>
-<li><p>hostname: localhost 表示主机名称。</p>
+<li><p>pom.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;com.sang.main&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;Parent-Moduel&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0.2&lt;/version&gt;</span><br><span class="line">    &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt;  &lt;!--，如果是儿子级别就不用加，孙子级别就要加了--&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>registerWithEureka：false. 表示是否注册到服务器。 因为它本身就是服务器，所以就无需把自己注册到服务器了。</p>
+<li><p>指明打包类型<code>&lt;packaging&gt;jar&lt;/packaging&gt;</code></p>
 </li>
-<li><p>fetchRegistry: false. 表示是否获取服务器的注册信息，和上面同理，这里也设置为 false。</p>
+</ul>
 </li>
-<li><p>defaultZone： http://${eureka.instance.hostname}:${server.port}/eureka/ 自己作为服务器，公布出来的地址。 比如后续某个微服务要把自己注册到 - eureka server, 那么就要使用这个地址： <a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a></p>
+<li><p>父项目中，pom.xml,依赖通过<code>&lt;dependecyManagement&gt;</code>引起来，表示子pom可能会用到的jar包依赖</p>
+<ul>
+<li>子pom如果需要引用该jar包，则直接引用即可！不需要加入<code>&lt;version&gt;</code>，便于统一管理。此外也可以加入仅在子pom中用到的jar包</li>
+<li>除了jar包依赖，插件也可以通过这样的方式进行管理</li>
+</ul>
 </li>
-<li><p>name: eurka-server 表示这个微服务本身的名称是 eureka-server</p>
+<li><p>如果子pom间存在引用关系，比如childA引用到了childB的jar包</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.module&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;childA-module&lt;/artifactId&gt;       &lt;!--加上childA的依赖--&gt;</span><br><span class="line">    &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 </li>
@@ -126,10 +127,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringCloud学习（2)/" data-id="cjz8b2ii20008mstshpkn0akf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/12/Maven父子项目/" data-id="cjz8b2iht0003mstseam4h184" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li></ul>
 
     </footer>
   </div>
@@ -137,19 +138,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/08/10/MysqlError/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          MySQL报错error1067
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/10/SpringBoot学习笔记1/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/08/12/WebSocket/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Spring Cloud学习（1）</div>
+      <div class="article-nav-title">WebSocket</div>
     </a>
   
 </nav>

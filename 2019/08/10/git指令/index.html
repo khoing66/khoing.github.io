@@ -5,20 +5,20 @@
   
 
   
-  <title>Spring Cloud学习（1） | Khoing的博客</title>
+  <title>git指令 | Khoing的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
-<meta name="keywords" content="SpringCloud">
+  <meta name="description" content="gitGithub新建项目与本地仓库连接 先在github中新建仓库 然后在本地想把项目存放的地方打开gitbash命令， git clone +你项目的http地址 就可以建立连接了  git命令 git branch 查看本地所有分支 git status 查看当前状态  git commit 提交  git branch -a 查看所有的分支 git branch -r 查看远程所有分支 g">
+<meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Cloud学习（1）">
-<meta property="og:url" content="http://yoursite.com/2019/08/10/SpringCloud学习（2)/index.html">
+<meta property="og:title" content="git指令">
+<meta property="og:url" content="http://yoursite.com/2019/08/10/git指令/index.html">
 <meta property="og:site_name" content="Khoing的博客">
-<meta property="og:description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
+<meta property="og:description" content="gitGithub新建项目与本地仓库连接 先在github中新建仓库 然后在本地想把项目存放的地方打开gitbash命令， git clone +你项目的http地址 就可以建立连接了  git命令 git branch 查看本地所有分支 git status 查看当前状态  git commit 提交  git branch -a 查看所有的分支 git branch -r 查看远程所有分支 g">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-10T04:48:37.337Z">
+<meta property="og:updated_time" content="2019-08-10T15:16:29.203Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Cloud学习（1）">
-<meta name="twitter:description" content="SpringCloud学习（2）服务注册中心 先建立父项目 删除 src的文件，父项目用不到 pom.xml 依赖 springboot 版本是 2.0.3 有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材 springcloud 用的版本是 Finchley   建立子项目，名字 eureka-server在pom.xml添加依赖spring">
+<meta name="twitter:title" content="git指令">
+<meta name="twitter:description" content="gitGithub新建项目与本地仓库连接 先在github中新建仓库 然后在本地想把项目存放的地方打开gitbash命令， git clone +你项目的http地址 就可以建立连接了  git命令 git branch 查看本地所有分支 git status 查看当前状态  git commit 提交  git branch -a 查看所有的分支 git branch -r 查看远程所有分支 g">
   
     <link rel="alternate" href="/atom.xml" title="Khoing的博客" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-SpringCloud学习（2)" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-git指令" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/08/10/SpringCloud学习（2)/" class="article-date">
-  <time datetime="2019-08-10T03:53:00.000Z" itemprop="datePublished">2019-08-10</time>
+    <a href="/2019/08/10/git指令/" class="article-date">
+  <time datetime="2019-08-10T15:16:29.065Z" itemprop="datePublished">2019-08-10</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spring Cloud学习（1）
+      git指令
     </h1>
   
 
@@ -91,45 +91,64 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SpringCloud学习（2）"><a href="#SpringCloud学习（2）" class="headerlink" title="SpringCloud学习（2）"></a>SpringCloud学习（2）</h1><h2 id="服务注册中心"><a href="#服务注册中心" class="headerlink" title="服务注册中心"></a>服务注册中心</h2><ol>
-<li>先建立父项目</li>
-<li>删除 src的文件，父项目用不到</li>
-<li>pom.xml<ol>
-<li>依赖 springboot 版本是 2.0.3</li>
-<li>有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材</li>
-<li>springcloud 用的版本是 Finchley</li>
-</ol>
-</li>
-<li>建立子项目，名字 eureka-server<br>在pom.xml添加依赖spring-cloud-starter-netflix-eureka-server</li>
-<li>EurekaServer 启动类。<br><br>这是一个 EurekaServer ，它扮演的角色是注册中心，用于注册各种微服务，以便于其他微服务找到和访问。 所以 Eureka 这个单词是 “找到啦” 的意思。<br>EurekaServer 本身就是个 Springboot 微服务, 所以它有 @SpringBootApplication 注解。<br>@EnableEurekaServer 表示这是个 EurekaServer 。</li>
-</ol>
-<ul>
-<li>aplicationSer配置文件中设置端口8761</li>
+        <h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><h2 id="Github新建项目与本地仓库连接"><a href="#Github新建项目与本地仓库连接" class="headerlink" title="Github新建项目与本地仓库连接"></a>Github新建项目与本地仓库连接</h2><ul>
+<li>先在github中新建仓库</li>
+<li>然后在本地想把项目存放的地方打开gitbash命令，</li>
+<li>git clone +你项目的http地址</li>
+<li>就可以建立连接了</li>
 </ul>
-<ol start="6">
-<li><p>配置文件<br><br>提供 eureka 的相关信息。</p>
-<ul>
-<li><p>hostname: localhost 表示主机名称。</p>
-</li>
-<li><p>registerWithEureka：false. 表示是否注册到服务器。 因为它本身就是服务器，所以就无需把自己注册到服务器了。</p>
-</li>
-<li><p>fetchRegistry: false. 表示是否获取服务器的注册信息，和上面同理，这里也设置为 false。</p>
-</li>
-<li><p>defaultZone： http://${eureka.instance.hostname}:${server.port}/eureka/ 自己作为服务器，公布出来的地址。 比如后续某个微服务要把自己注册到 - eureka server, 那么就要使用这个地址： <a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a></p>
-</li>
-<li><p>name: eurka-server 表示这个微服务本身的名称是 eureka-server</p>
-</li>
+<h2 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h2><ul>
+<li>git branch 查看本地所有分支</li>
+<li>git status 查看当前状态 </li>
+<li>git commit 提交 </li>
+<li>git branch -a 查看所有的分支</li>
+<li>git branch -r 查看远程所有分支</li>
+<li>git commit -am “init” 提交并且加注释 </li>
+<li>git remote add origin <a href="mailto:git@192.168.1.119" target="_blank" rel="noopener">git@192.168.1.119</a>:ndshow</li>
+<li>git push origin master 将文件给推到服务器上 </li>
+<li>git remote show origin 显示远程库origin里的资源 </li>
+<li>git push origin master:develop</li>
+<li>git push origin master:hb-dev 将本地库与服务器上的库进行关联 </li>
+<li>git checkout –track origin/dev 切换到远程dev分支</li>
+<li>git branch -D master develop 删除本地库develop</li>
+<li>git checkout -b dev 建立一个新的本地分支dev</li>
+<li>git merge origin/dev 将分支dev与当前分支进行合并</li>
+<li>git checkout dev 切换到本地dev分支</li>
+<li>git remote show 查看远程库</li>
+<li>git add .</li>
+<li>git rm 文件名(包括路径) 从git中删除指定文件</li>
+<li>git clone git://github.com/schacon/grit.git 从服务器上将代码给拉下来</li>
+<li>git config –list 看所有用户</li>
+<li>git ls-files 看已经被提交的</li>
+<li>git rm [file name] 删除一个文件</li>
+<li>git commit -a 提交当前repos的所有的改变</li>
+<li>git add [file name] 添加一个文件到git index</li>
+<li>git commit -v 当你用－v参数的时候可以看commit的差异</li>
+<li>git commit -m “This is the message describing the commit” 添加commit信息</li>
+<li>git commit -a -a是代表add，把所有的change加到git index里然后再commit</li>
+<li>git commit -a -v 一般提交命令</li>
+<li>git log 看你commit的日志</li>
+<li>git diff 查看尚未暂存的更新</li>
+<li>git rm a.a 移除文件(从暂存区和工作区中删除)</li>
+<li>git rm –cached a.a 移除文件(只从暂存区中删除)</li>
+<li>git commit -m “remove” 移除文件(从Git中删除)</li>
+<li>git rm -f a.a 强行移除修改后文件(从暂存区和工作区中删除)</li>
+<li>git diff –cached 或 $ git diff –staged 查看尚未提交的更新</li>
+<li>git stash push 将文件给push到一个临时空间中</li>
+<li>git stash pop 将文件从临时空间pop下来</li>
+<li>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:username/Hello-World.git</li>
+<li>git push origin master 将本地项目给提交到服务器中</li>
+<li>git pull 本地与服务器端同步</li>
+<li>git push (远程仓库名) (分支名) 将本地分支推送到服务器上去。</li>
 </ul>
-</li>
-</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringCloud学习（2)/" data-id="cjz8b2ii20008mstshpkn0akf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/git指令/" data-id="cjz8b2ij4000mmsts0zey6lwh" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
 
     </footer>
   </div>
@@ -137,19 +156,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/08/10/MysqlError/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/10/Springcloud全家桶/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          MySQL报错error1067
+          (no title)
         
       </div>
     </a>
   
   
-    <a href="/2019/08/10/SpringBoot学习笔记1/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/08/10/SpringBoot配置/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Spring Cloud学习（1）</div>
+      <div class="article-nav-title">SpringBoot配置</div>
     </a>
   
 </nav>
