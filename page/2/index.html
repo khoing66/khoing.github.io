@@ -66,6 +66,171 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SpringBoot学习笔记1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/10/SpringBoot学习笔记1/" class="article-date">
+  <time datetime="2019-08-10T03:53:00.000Z" itemprop="datePublished">2019-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/10/SpringBoot学习笔记1/">Spring Cloud学习（1）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring-Cloud学习（1）"><a href="#Spring-Cloud学习（1）" class="headerlink" title="Spring Cloud学习（1）"></a>Spring Cloud学习（1）</h1><h2 id="单体架构"><a href="#单体架构" class="headerlink" title="单体架构"></a>单体架构</h2><ul>
+<li>单体架构好处：<ul>
+<li>开发、测试、部署方便，直接打成jar包或war包就可以了</li>
+</ul>
+</li>
+<li>弊端：<ul>
+<li>高访问、高并发的上限是固定的</li>
+<li>比如一个单体架构，能够承受 1000次访问/秒。 但是访问量达到 2000次/秒的时候，就会非常卡顿，严重影响业务，并且仅仅依靠单体架构本身，很难突破这个瓶颈了。这时分布式和集群就出现了。</li>
+</ul>
+</li>
+</ul>
+<h2 id="分布式和集群"><a href="#分布式和集群" class="headerlink" title="分布式和集群"></a>分布式和集群</h2><ul>
+<li>这里从一个简单的单站系统开始，然后一步一步改造成分布式+集群的系统</li>
+</ul>
+<ol>
+<li><p>单体架构例子<br><br>简单的单体架构就是提供数据，展示数据。就是一个典型的单体结构它把两个服务 <u>提供数据</u>和<u>展示数据</u> 放在了一起，这就会出现固有的缺点。</p>
+<ol>
+<li><strong>如果要修改数据部分的代码， 那么必须把整个项目重新编译打包部署。 虽然展示部分，什么都没变但是也会因为重新部署而暂时不能使用，要部署完了，才能使用。</strong></li>
+<li><strong>如果提供数据部分出现了问题，比如有的开发人员改错了，抛出了异常，会导致整个项目不能使用，展示数据部分也因此受到影响。</strong></li>
+<li><strong>性能瓶颈难以突破</strong></li>
+<li>等等。。</li>
+</ol>
+</li>
+<li><p>微服务概念<br>  </p>
+<ul>
+<li>简单来说一个SpringBoot就是一个微服务，并且这个SpringBoot做个事很单纯，一个ProductDemo项目，就可以拆成两个服务，分别是数据微服务、视图微服务。就是两个SpringBoot，只是各自做的事很单纯。</li>
+</ul>
+<ol>
+<li>服务注册<br><br>那么有了微服务，就存在如何管理这个微服务，以及这两个微服务之间如何通信的问题，所以就要引入一个 微服务注册中心概念，这个微服务注册中心在 springcloud 里就叫做 eureka server, 通过它把就可以把微服务注册起来，以供将来调用。</li>
+<li>服务访问<br><br>在业务逻辑上， 视图微服务 需要 数据微服务 的数据，所以就存在一个微服务访问另一个微服务的需要。 而这俩微服务已经被注册中心管理起来了，所以 视图微服务 就可以通过 注册中心定位并访问 数据微服务了。</li>
+</ol>
+</li>
+<li><p>分布式概念</p>
+<ul>
+<li>简单来说，原来在一个SpringBoot中完成的事，现在分为多个SpringBoot共同完成。</li>
+<li>分布式的好处：<ol>
+<li>各个微服务互不影响。如果数据微服务挂了，那么视图微服务不受影响，也可以运行。</li>
+<li>可以让不同的团队开发不同的微服务，他们之间只要约定好接口，彼此之间是低耦合的。</li>
+<li>如果我要更新数据微服务，视图微服务是不受影响的<br><br>这就解决了单体架构的问题了</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>集群</p>
+</li>
+</ol>
+<ul>
+<li>原来数据微服务只有这一个springboot, 现在做同样数据微服务的，有两个 springboot, 他们提供的功能一模一样，只是端口不一样，这样就形成了集群。</li>
+<li>集群的好处：<ol>
+<li>比起一个 springboot, 两个springboot 可以分别部署在两个不同的机器上，那么理论上来说，能够承受的负载就是2倍，这样系统就具备通过横向扩展而提高性能的机制。</li>
+<li>如果 端口8001 挂了，还有 8002 继续提供微服务，这就叫做高可用 。</li>
+</ol>
+</li>
+</ul>
+<h2 id="SpingCloud父子项目"><a href="#SpingCloud父子项目" class="headerlink" title="SpingCloud父子项目"></a>SpingCloud父子项目</h2><ul>
+<li>接下来就要开始做 springcloud 项目了。 springcloud 比较特别，它由多个微服务组成， 所谓的微服务，就是 springboot,。<br>所以可以说 springcloud 由多个 springboot 项目组成， 而这些 springboot 之间又是围绕一个共同目的而存在的。<br>所以，为了便于组织这些 springboot 项目，我们会采用 maven 父子-聚合 项目的方式来开发。</li>
+<li>通过 maven 可以创建父子-聚合项目。 所谓的父子项目，即有一个父项目，有多个子项目。<br>这些子项目，在业务逻辑上，都归纳在这个父项目下，并且一般来说，都会有重复的jar包共享。<br>所以常用的做法会把重复的 jar 包都放在父项目下进行依赖，那么子项目就无需再去依赖这些重复的 jar 包了。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/10/SpringBoot学习笔记1/" data-id="cjzcucqb50008pwts0f2qbt1z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SpringCloud学习（2)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/10/SpringCloud学习（2)/" class="article-date">
+  <time datetime="2019-08-10T03:53:00.000Z" itemprop="datePublished">2019-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/10/SpringCloud学习（2)/">Spring Cloud学习（1）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringCloud学习（2）"><a href="#SpringCloud学习（2）" class="headerlink" title="SpringCloud学习（2）"></a>SpringCloud学习（2）</h1><h2 id="服务注册中心"><a href="#服务注册中心" class="headerlink" title="服务注册中心"></a>服务注册中心</h2><ol>
+<li>先建立父项目</li>
+<li>删除 src的文件，父项目用不到</li>
+<li>pom.xml<ol>
+<li>依赖 springboot 版本是 2.0.3</li>
+<li>有基于 hutool 的依赖， hutool 是一个工具类，用起来很方便，这是 hutool 系列教材</li>
+<li>springcloud 用的版本是 Finchley</li>
+</ol>
+</li>
+<li>建立子项目，名字 eureka-server<br>在pom.xml添加依赖spring-cloud-starter-netflix-eureka-server</li>
+<li>EurekaServer 启动类。<br><br>这是一个 EurekaServer ，它扮演的角色是注册中心，用于注册各种微服务，以便于其他微服务找到和访问。 所以 Eureka 这个单词是 “找到啦” 的意思。<br>EurekaServer 本身就是个 Springboot 微服务, 所以它有 @SpringBootApplication 注解。<br>@EnableEurekaServer 表示这是个 EurekaServer 。</li>
+</ol>
+<ul>
+<li>aplicationSer配置文件中设置端口8761</li>
+</ul>
+<ol start="6">
+<li><p>配置文件<br><br>提供 eureka 的相关信息。</p>
+<ul>
+<li><p>hostname: localhost 表示主机名称。</p>
+</li>
+<li><p>registerWithEureka：false. 表示是否注册到服务器。 因为它本身就是服务器，所以就无需把自己注册到服务器了。</p>
+</li>
+<li><p>fetchRegistry: false. 表示是否获取服务器的注册信息，和上面同理，这里也设置为 false。</p>
+</li>
+<li><p>defaultZone： http://${eureka.instance.hostname}:${server.port}/eureka/ 自己作为服务器，公布出来的地址。 比如后续某个微服务要把自己注册到 - eureka server, 那么就要使用这个地址： <a href="http://localhost:8761/eureka/" target="_blank" rel="noopener">http://localhost:8761/eureka/</a></p>
+</li>
+<li><p>name: eurka-server 表示这个微服务本身的名称是 eureka-server</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a><a href="https://www.cnblogs.com/edisonchou/p/java_spring_cloud_foundation_sample_list.html" target="_blank" rel="noopener">SpringCloud</a></h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/10/SpringCloud学习（2)/" data-id="cjzcucqct000spwtsewcbl97o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Markdown-notes" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/10/Markdown-notes/" class="article-date">
@@ -117,7 +282,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/Markdown-notes/" data-id="cjz8b2ihd0000mstshevc8pie" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/Markdown-notes/" data-id="cjzcucqas0001pwtswy2uzvse" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
@@ -147,7 +312,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li></ul>
     </div>
   </div>
 
@@ -157,7 +322,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/WebSocket/" style="font-size: 10px;">WebSocket</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+      <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/WebSocket/" style="font-size: 10px;">WebSocket</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a>
     </div>
   </div>
 
@@ -179,6 +344,14 @@
       <ul>
         
           <li>
+            <a href="/2019/08/14/linux-连接网络失败/">linux 连接网络失败</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/12/redis/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/12/Maven父子项目/">Maven 父子项目</a>
           </li>
         
@@ -188,14 +361,6 @@
         
           <li>
             <a href="/2019/08/12/Nginx/">Nginx</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/10/Springcloud全家桶/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/10/git指令/">git指令</a>
           </li>
         
       </ul>

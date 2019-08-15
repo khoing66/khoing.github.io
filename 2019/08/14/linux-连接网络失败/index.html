@@ -5,20 +5,20 @@
   
 
   
-  <title>Maven 父子项目 | Khoing的博客</title>
+  <title>linux 连接网络失败 | Khoing的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Maven 父子项目 新建maven父项目  不要勾选create from archeType（注意不要勾选模板解释一下，父工程其实是空的工程，选用模板到时候还得去删 ） pom.xml 中要有&amp;lt;packaging&amp;gt;pom&amp;lt;/packaging&amp;gt; 和  1234&amp;lt;modules&amp;gt;    &amp;lt;module&amp;gt;childA&amp;lt;/module&amp;gt;">
-<meta name="keywords" content="Maven">
+  <meta name="description" content="linux 虚拟机下 连接网络失败原因 查看本地下的 网络，适配器模式下的VMnet8，属性下的ipv4，  与linux本地 连接的设置保持一致">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Maven 父子项目">
-<meta property="og:url" content="http://yoursite.com/2019/08/12/Maven父子项目/index.html">
+<meta property="og:title" content="linux 连接网络失败">
+<meta property="og:url" content="http://yoursite.com/2019/08/14/linux-连接网络失败/index.html">
 <meta property="og:site_name" content="Khoing的博客">
-<meta property="og:description" content="Maven 父子项目 新建maven父项目  不要勾选create from archeType（注意不要勾选模板解释一下，父工程其实是空的工程，选用模板到时候还得去删 ） pom.xml 中要有&amp;lt;packaging&amp;gt;pom&amp;lt;/packaging&amp;gt; 和  1234&amp;lt;modules&amp;gt;    &amp;lt;module&amp;gt;childA&amp;lt;/module&amp;gt;">
+<meta property="og:description" content="linux 虚拟机下 连接网络失败原因 查看本地下的 网络，适配器模式下的VMnet8，属性下的ipv4，  与linux本地 连接的设置保持一致">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-12T10:38:51.155Z">
+<meta property="og:updated_time" content="2019-08-14T08:07:51.809Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Maven 父子项目">
-<meta name="twitter:description" content="Maven 父子项目 新建maven父项目  不要勾选create from archeType（注意不要勾选模板解释一下，父工程其实是空的工程，选用模板到时候还得去删 ） pom.xml 中要有&amp;lt;packaging&amp;gt;pom&amp;lt;/packaging&amp;gt; 和  1234&amp;lt;modules&amp;gt;    &amp;lt;module&amp;gt;childA&amp;lt;/module&amp;gt;">
+<meta name="twitter:title" content="linux 连接网络失败">
+<meta name="twitter:description" content="linux 虚拟机下 连接网络失败原因 查看本地下的 网络，适配器模式下的VMnet8，属性下的ipv4，  与linux本地 连接的设置保持一致">
   
     <link rel="alternate" href="/atom.xml" title="Khoing的博客" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Maven父子项目" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-linux-连接网络失败" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/08/12/Maven父子项目/" class="article-date">
-  <time datetime="2019-08-12T10:38:51.108Z" itemprop="datePublished">2019-08-12</time>
+    <a href="/2019/08/14/linux-连接网络失败/" class="article-date">
+  <time datetime="2019-08-14T08:07:51.809Z" itemprop="datePublished">2019-08-14</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Maven 父子项目
+      linux 连接网络失败
     </h1>
   
 
@@ -91,46 +91,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Maven-父子项目"><a href="#Maven-父子项目" class="headerlink" title="Maven 父子项目"></a>Maven 父子项目</h1><ol>
-<li><p>新建maven父项目</p>
-<ul>
-<li>不要勾选create from archeType（注意不要勾选模板解释一下，父工程其实是空的工程，选用模板到时候还得去删 ）</li>
-<li>pom.xml 中要有<code>&lt;packaging&gt;pom&lt;/packaging&gt;</code></li>
-<li>和  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">    &lt;module&gt;childA&lt;/module&gt;</span><br><span class="line">    &lt;module&gt;childB&lt;/module&gt;</span><br><span class="line">&lt;/modules&gt;</span><br></pre></td></tr></table></figure>
-</li>
+        <h2 id="linux-虚拟机下-连接网络失败原因"><a href="#linux-虚拟机下-连接网络失败原因" class="headerlink" title="linux 虚拟机下 连接网络失败原因"></a>linux 虚拟机下 连接网络失败原因</h2><ul>
+<li>查看本地下的 网络，适配器模式下的VMnet8，属性下的ipv4，</li>
 </ul>
-</li>
-<li><p>在父项文件名称右键new-&gt;module -&gt;勾选create from archeType</p>
-<ul>
-<li><p>pom.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;com.sang.main&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;Parent-Moduel&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0.2&lt;/version&gt;</span><br><span class="line">    &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt;  &lt;!--，如果是儿子级别就不用加，孙子级别就要加了--&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>指明打包类型<code>&lt;packaging&gt;jar&lt;/packaging&gt;</code></p>
-</li>
-</ul>
-</li>
-<li><p>父项目中，pom.xml,依赖通过<code>&lt;dependecyManagement&gt;</code>引起来，表示子pom可能会用到的jar包依赖</p>
-<ul>
-<li>子pom如果需要引用该jar包，则直接引用即可！不需要加入<code>&lt;version&gt;</code>，便于统一管理。此外也可以加入仅在子pom中用到的jar包</li>
-<li>除了jar包依赖，插件也可以通过这样的方式进行管理</li>
-</ul>
-</li>
-<li><p>如果子pom间存在引用关系，比如childA引用到了childB的jar包</p>
-<ul>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.module&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;childA-module&lt;/artifactId&gt;       &lt;!--加上childA的依赖--&gt;</span><br><span class="line">    &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ol>
+<p>与linux本地 连接的设置保持一致</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/12/Maven父子项目/" data-id="cjzcucqbb000bpwtsqud991sn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/14/linux-连接网络失败/" data-id="cjzcucqbd000dpwtsp5u582b3" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
 
     </footer>
   </div>
@@ -138,19 +110,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/08/12/redis/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/12/WebSocket/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/08/12/redis/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">WebSocket</div>
+      <div class="article-nav-title"></div>
     </a>
   
 </nav>
