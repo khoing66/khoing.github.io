@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>return,break,continue | Khoing的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="return 、break和continue的区别和作用 return关键字并不是专门用于跳出循环的，return的功能是结束一个方法。 一旦在循环体内执行到一个return语句，return语句将会结束该方法，循环自然也随之结束。与continue和break不同的是，return直接结束整个方法，不管这个return处于多少层循环之内。  1234567891011public class R">
+<meta name="keywords" content="return;brean;continue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="return,break,continue">
+<meta property="og:url" content="http://yoursite.com/2019/08/17/return,break,continue/index.html">
+<meta property="og:site_name" content="Khoing的博客">
+<meta property="og:description" content="return 、break和continue的区别和作用 return关键字并不是专门用于跳出循环的，return的功能是结束一个方法。 一旦在循环体内执行到一个return语句，return语句将会结束该方法，循环自然也随之结束。与continue和break不同的是，return直接结束整个方法，不管这个return处于多少层循环之内。  1234567891011public class R">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-17T01:02:53.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="return,break,continue">
+<meta name="twitter:description" content="return 、break和continue的区别和作用 return关键字并不是专门用于跳出循环的，return的功能是结束一个方法。 一旦在循环体内执行到一个return语句，return语句将会结束该方法，循环自然也随之结束。与continue和break不同的是，return直接结束整个方法，不管这个return处于多少层循环之内。  1234567891011public class R">
+  
+    <link rel="alternate" href="/atom.xml" title="Khoing的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Khoing的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">关于学习中遇到的问题以及笔记</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-return,break,continue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/17/return,break,continue/" class="article-date">
+  <time datetime="2019-08-17T01:02:53.378Z" itemprop="datePublished">2019-08-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      return,break,continue
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="return-、break和continue的区别和作用"><a href="#return-、break和continue的区别和作用" class="headerlink" title="return 、break和continue的区别和作用"></a>return 、break和continue的区别和作用</h1><ol>
+<li>return关键字并不是专门用于跳出循环的，return的功能是结束一个方法。 一旦在循环体内执行到一个return语句，return语句将会结束该方法，循环自然也随之结束。与continue和break不同的是，return直接结束整个方法，不管这个return处于多少层循环之内。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReturnTest</span></span>&#123;　　</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;　　　　</span><br><span class="line">        <span class="comment">// 一个简单的for循环　　　　</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span> ; i++ )&#123;　　　　　　</span><br><span class="line">            System.out.println(<span class="string">"i的值是"</span> + i);　　　　　　</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">1</span>)&#123;　　　　　　　　</span><br><span class="line">                <span class="keyword">return</span>;　　　　　　&#125;　　　　　　</span><br><span class="line">            System.out.println(<span class="string">"return后的输出语句"</span>);　　　　</span><br><span class="line">        &#125;　　</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>continue的功能和break有点类似，区别是continue只是中止本次循环，接着开始下一次循环。而break则是完全中止循环。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContinueTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"><span class="comment">// 一个简单的for循环</span></span><br><span class="line">　　　　<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span> ; i++ )&#123;</span><br><span class="line">　　　　　　　System.out.println(<span class="string">"i的值是"</span> + i);</span><br><span class="line">　　　　　　　<span class="keyword">if</span> (i == <span class="number">1</span>)&#123;</span><br><span class="line">　　　　　　　　　<span class="comment">// 忽略本次循环的剩下语句</span></span><br><span class="line">　　　　　　　　　<span class="keyword">continue</span>;</span><br><span class="line">　　　　　　　&#125;</span><br><span class="line">　　　　　　　System.out.println(<span class="string">"continue后的输出语句"</span>);</span><br><span class="line">　　　　&#125;</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>break用于完全结束一个循环，跳出循环体。不管是哪种循环，一旦在循环体中遇到break，系统将完全结束循环，开始执行循环之后的代码。 break不仅可以结束其所在的循环，还可结束其外层循环。此时需要在break后紧跟一个标签，这个标签用于标识一个外层循环。Java中的标签就是一个紧跟着英文冒号（:）的标识符。且它必须放在循环语句之前才有作用。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BreakTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">　　　　<span class="comment">// 外层循环，outer作为标识符</span></span><br><span class="line">　　　　outer:</span><br><span class="line">　　　　<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">5</span> ; i++ )&#123;</span><br><span class="line">　　　　　　<span class="comment">// 内层循环</span></span><br><span class="line">　　　　　　<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span> ; j++ )&#123;</span><br><span class="line">　　　　　　　　System.out.println(<span class="string">"i的值为:"</span> + i + <span class="string">" j的值为:"</span> + j);</span><br><span class="line">　　　　　　　　<span class="keyword">if</span> (j == <span class="number">1</span>)&#123;</span><br><span class="line">　　　　　　　　　　<span class="comment">// 跳出outer标签所标识的循环。</span></span><br><span class="line">　　　　　　　　　　　<span class="keyword">break</span> outer;</span><br><span class="line">　　　　　　　　&#125;</span><br><span class="line">　　　　　　&#125;</span><br><span class="line">　　　　&#125;</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/17/return,break,continue/" data-id="cjzfoz5cl000yp0ts2htv2k9n" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/return-brean-continue/">return;brean;continue</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/17/Mysql练习3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Mysql练习3
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/17/Java数组/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java数组</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/return-brean-continue/">return;brean;continue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 20px;">Mysql</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/WebSocket/" style="font-size: 10px;">WebSocket</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/return-brean-continue/" style="font-size: 10px;">return;brean;continue</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/17/Mysql练习3/">Mysql练习3</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/17/return,break,continue/">return,break,continue</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/17/Java数组/">Java数组</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/16/SQL练习02/">SQL练习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/14/linux-连接网络失败/">linux 连接网络失败</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Khoing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
