@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Khoing的博客">
 <meta property="og:description" content="SpringBoot连接MySQL数据库 在pom.xml中添加maven依赖，代码如下  12345678910&amp;lt;dependency&amp;gt;&amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-jdbc&amp;lt;/artifactId&amp;gt;&amp;lt;/dep">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-11T01:34:09.099Z">
+<meta property="og:updated_time" content="2019-08-23T04:53:37.323Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot配置">
 <meta name="twitter:description" content="SpringBoot连接MySQL数据库 在pom.xml中添加maven依赖，代码如下  12345678910&amp;lt;dependency&amp;gt;&amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-boot-starter-jdbc&amp;lt;/artifactId&amp;gt;&amp;lt;/dep">
@@ -115,7 +115,18 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">        &lt;!DOCTYPE generatorConfiguration</span><br><span class="line">                PUBLIC <span class="string">"-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span></span><br><span class="line">                <span class="string">"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">&lt;!--    &lt;classPathEntry location=<span class="string">"/Program Files/IBM/SQLLIB/java/db2java.zip"</span> /&gt;--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;context id=<span class="string">"MysqlTables"</span> targetRuntime=<span class="string">"MyBatis3"</span>&gt;</span><br><span class="line">    &lt;!--  这个插件可以生成一个新的selectByExample方法，这个方法可以接受一个RowBounds参数，主要用来实现分页 --&gt;</span><br><span class="line">        &lt;plugin type=<span class="string">"org.mybatis.generator.plugins.RowBoundsPlugin"</span>&gt;</span><br><span class="line">        &lt;/plugin&gt;</span><br><span class="line">    &lt;!--    连接数据库--&gt;</span><br><span class="line"></span><br><span class="line">        &lt;jdbcConnection driverClass=<span class="string">"com.mysql.jdbc.Driver"</span></span><br><span class="line">                        connectionURL=<span class="string">"jdbc:mysql://localhost:3306/test"</span></span><br><span class="line">                        userId=<span class="string">"root"</span></span><br><span class="line">                        password=<span class="string">"admin"</span>&gt;</span><br><span class="line">        &lt;/jdbcConnection&gt;</span><br><span class="line">    &lt;!--    指定生成的类型为java类型，避免数据库中number等类型字段 &amp;ndash;&amp;gt;--&gt;</span><br><span class="line"></span><br><span class="line">        &lt;javaTypeResolver &gt;</span><br><span class="line">            &lt;property name=<span class="string">"forceBigDecimals"</span> value=<span class="string">"false"</span> /&gt;</span><br><span class="line">        &lt;/javaTypeResolver&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--自动生成的实体的存放包路径 --&gt;</span><br><span class="line">        &lt;javaModelGenerator targetPackage=<span class="string">"study.community.model"</span> targetProject=<span class="string">"src/main/java"</span>&gt;</span><br><span class="line">            &lt;property name=<span class="string">"enableSubPackages"</span> value=<span class="string">"true"</span> /&gt;</span><br><span class="line">            &lt;property name=<span class="string">"trimStrings"</span> value=<span class="string">"true"</span> /&gt;</span><br><span class="line">        &lt;/javaModelGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--自动生成的*Mapper.xml文件存放路径 --&gt;</span><br><span class="line">        &lt;sqlMapGenerator targetPackage=<span class="string">"mapper"</span>  targetProject=<span class="string">"src/main/resources"</span>&gt;</span><br><span class="line">            &lt;property name=<span class="string">"enableSubPackages"</span> value=<span class="string">"true"</span> /&gt;</span><br><span class="line">        &lt;/sqlMapGenerator&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--自动生成的*Mapper.java存放路径 --&gt;</span><br><span class="line">        &lt;javaClientGenerator type=<span class="string">"XMLMAPPER"</span> targetPackage=<span class="string">"study.community.mapper"</span>  targetProject=<span class="string">"src/main/java"</span>&gt;</span><br><span class="line">            &lt;property name=<span class="string">"enableSubPackages"</span> value=<span class="string">"true"</span> /&gt;</span><br><span class="line">        &lt;/javaClientGenerator&gt;</span><br><span class="line">    &lt;!--指定数据库中的表--&gt;</span><br><span class="line">        &lt;table  tableName=<span class="string">"product"</span> domainObjectName=<span class="string">"Product"</span> &gt;</span><br><span class="line">        &lt;/table&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/context&gt;</span><br><span class="line">&lt;/generatorConfiguration&gt;</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
-<li>mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate 指令</li>
+<li><p>mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate 指令</p>
+</li>
+<li><p>需要告诉.xml的位置</p>
+<ul>
+<li><p>在applicaiton.properties 中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mybatis.mapperLocations=classpath:mapper/*Mapper.xml</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
 </ol>
 <h2 id="lomboc插件"><a href="#lomboc插件" class="headerlink" title="lomboc插件"></a>lomboc插件</h2><ol>
 <li><p>只需要在类前面加个@Data,就可以省去pojo的get、set方法</p>
@@ -131,7 +142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringBoot配置/" data-id="cjzfoz5ck000xp0tsslbxxyjl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/SpringBoot配置/" data-id="cjznndv7o000lq8ts35vymqey" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li></ul>
@@ -173,7 +184,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/return-brean-continue/">return;brean;continue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/">error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/return-brean-continue/">return;brean;continue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li></ul>
     </div>
   </div>
 
@@ -183,7 +194,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 20px;">Mysql</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/WebSocket/" style="font-size: 10px;">WebSocket</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/return-brean-continue/" style="font-size: 10px;">return;brean;continue</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a>
+      <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 20px;">Mysql</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/WebSocket/" style="font-size: 10px;">WebSocket</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/return-brean-continue/" style="font-size: 10px;">return;brean;continue</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a>
     </div>
   </div>
 
@@ -205,23 +216,23 @@
       <ul>
         
           <li>
+            <a href="/2019/08/23/Invalid-bound-statement-(not-found)报错/">Invalid bound statement (not found)报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/23/time-zone-报错/">time zone 报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/21/怎么进行职业规划？/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/17/Mysql练习3/">Mysql练习3</a>
           </li>
         
           <li>
             <a href="/2019/08/17/return,break,continue/">return,break,continue</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/17/Java数组/">Java数组</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/16/SQL练习02/">SQL练习</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/14/linux-连接网络失败/">linux 连接网络失败</a>
           </li>
         
       </ul>
