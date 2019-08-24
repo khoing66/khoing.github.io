@@ -66,6 +66,175 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SpringBoot整合RabbitMQ" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/24/SpringBoot整合RabbitMQ/" class="article-date">
+  <time datetime="2019-08-24T09:25:32.338Z" itemprop="datePublished">2019-08-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/24/SpringBoot整合RabbitMQ/">SpringBoot整合RabbitMQ</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringBoot整合RabbitMQ"><a href="#SpringBoot整合RabbitMQ" class="headerlink" title="SpringBoot整合RabbitMQ"></a>SpringBoot整合RabbitMQ</h1><h2 id="Exchange类型"><a href="#Exchange类型" class="headerlink" title="Exchange类型"></a>Exchange类型</h2><ul>
+<li>生产者把消息发布到Exchange上，消息最终到达队列并被消费者接受，binding决定交换器的消息应该发送到哪个队列</li>
+</ul>
+<h3 id="direct"><a href="#direct" class="headerlink" title="direct"></a>direct</h3><ul>
+<li>消息中的 路由键如果和binding中binding key一致，交换器就把消息发送到对应的队列中。</li>
+<li>它是完全匹配，单播的形式</li>
+</ul>
+<h3 id="Fanout"><a href="#Fanout" class="headerlink" title="Fanout"></a>Fanout</h3><ul>
+<li>把下面的所有队列全部发送到对应的队列中</li>
+<li>转发消息是最快的</li>
+</ul>
+<h3 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h3><ul>
+<li>把路由键和绑定键的字符串切分成单词，这些单词之间有点隔开</li>
+<li>队列的binging key，通常是#.name,name.#</li>
+<li>#表示0个或多个单词，*匹配一个单词</li>
+</ul>
+<h2 id="Docker中下载RabbitMQ"><a href="#Docker中下载RabbitMQ" class="headerlink" title="Docker中下载RabbitMQ"></a>Docker中下载RabbitMQ</h2><ul>
+<li><p>docker pull rabbitmq:3-management</p>
+</li>
+<li><p>docker images</p>
+</li>
+<li><p>docker run -d  -p 5672:5672 -p 15672:15672 –name myrabbitmq  83878773002b</p>
+</li>
+<li><p>网页访问15672端口就可以进入后台，默认账号和密码都是guest</p>
+</li>
+</ul>
+<h3 id="SpringBoot引入RabbitMQ"><a href="#SpringBoot引入RabbitMQ" class="headerlink" title="SpringBoot引入RabbitMQ"></a>SpringBoot引入RabbitMQ</h3><ul>
+<li><p>创建项目</p>
+</li>
+<li><p>进入spring初始化向导（Artifact中不能大写）</p>
+</li>
+<li><p>依赖勾选web，RabbitMQ</p>
+</li>
+<li><p>在application.properties中加入映射地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#不写默认是主机地址</span><br><span class="line">spring.rabbitmq.host=192.168.2.2</span><br><span class="line">#不写默认是主机地址</span><br><span class="line">spring.rabbitmq.host=192.168.2.2</span><br><span class="line">#下面不写都是默认值</span><br><span class="line">spring.rabbitmq.username=guest</span><br><span class="line">spring.rabbitmq.password=guest</span><br><span class="line">spring.rabbitmq.port=5672</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>先注入RabbitTemplate</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">   RabbitTemplate rabbitTemplate;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行发送操作</p>
+<ul>
+<li><p>定义发送对象</p>
+</li>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sport</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String brand;</span><br><span class="line">    <span class="keyword">private</span> Float price;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Sport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;<span class="comment">//注意： 这里必须要有无参构造器，json的反序列化，必须要有无参构造器</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Sport</span><span class="params">(String name, String brand, Float price)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.brand = brand;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getBrand</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> brand;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBrand</span><span class="params">(String brand)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.brand = brand;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Float <span class="title">getPrice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPrice</span><span class="params">(Float price)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行</p>
+</li>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Message需要自己构造一个，定义消息头，消息体</span></span><br><span class="line"><span class="comment"> rabbitTemplate.send(exchange, rountingKey, message);*/</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/*而object不用，定义消息头，直接有消息体，只需要传入发送的对象，将会自动序列化发送给RabbitMQ</span></span><br><span class="line"><span class="comment">rabbitTemplate.convertAndSend(exchange,rountingKey,object);*/</span></span><br><span class="line">    </span><br><span class="line"> <span class="comment">//Ctrl + p 提示方法参数</span></span><br><span class="line"> HashMap&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"> map.put(<span class="string">"name"</span>, <span class="string">"khoing"</span>);</span><br><span class="line"> map.put(<span class="string">"age"</span>, <span class="string">"18"</span>);</span><br><span class="line"> map.put(<span class="string">"list"</span>, Arrays.asList(<span class="string">"hard"</span>, <span class="number">46</span>, <span class="keyword">true</span>));</span><br><span class="line"> rabbitTemplate.convertAndSend(<span class="string">"exchange.direct"</span>, <span class="string">"suzhou.khoing"</span>, map);</span><br><span class="line"> <span class="comment">//默认发送出去是序列化后的数据</span></span><br><span class="line">    </span><br><span class="line"> rabbitTemplate.convertAndSend(<span class="string">"exchange.direct"</span>, <span class="string">"suzhou.ls"</span>, <span class="keyword">new</span> Sport(<span class="string">"basketball"</span>, <span class="string">"斯伯丁"</span>, <span class="keyword">new</span> Float(<span class="number">161.1</span>)));</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>接受消息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object message = rabbitTemplate.receiveAndConvert(<span class="string">"suzhou.khoing"</span>);</span><br><span class="line">       System.out.println(message.getClass());</span><br><span class="line">       System.out.println(message);</span><br><span class="line">  </span><br><span class="line">       Object o = rabbitTemplate.receiveAndConvert(<span class="string">"suzhou.ls"</span>);</span><br><span class="line">       System.out.println(o.getClass());</span><br><span class="line">       System.out.println(o);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用json对象发送消息</p>
+<ul>
+<li><p>配置config，返回一个json</p>
+</li>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">amqpConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//ctrl + h 可以查看继承关系</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MessageConverter <span class="title">messageConverter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Jackson2JsonMessageConverter();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认接受对象不用发序列化，转化为json对象后，接收数据会自动反序列化</p>
+</li>
+</ul>
+</li>
+<li><p>监听某个消息队列</p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableRabbit</span><span class="comment">//要让RabbitListener注解起作用，要开启基于注解的RabbitMQ</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpotService</span> </span>&#123;</span><br><span class="line">	<span class="comment">//queues是个String[],可以监听多个队列</span></span><br><span class="line">    <span class="meta">@RabbitListener</span>(queues =  &#123;<span class="string">"suzhou.khoing"</span>, <span class="string">"suzhou.ls"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">receive</span><span class="params">(Sport sport)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"叮咚！收到消息，请注意查收"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        System.out.println(sport);<span class="comment">//若该类没有toString方法，打印该对象时，是不是对象里面的属性值</span></span><br><span class="line">        <span class="comment">//需要在该类中重写toString方法</span></span><br><span class="line">        System.out.println(sport.toString());</span><br><span class="line">        <span class="comment">//两个输出结果是一样的</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>AmqpAdmin</p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">   AmqpAdmin amqpAdmin;</span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">       amqpAdmin.declareExchange(<span class="keyword">new</span> DirectExchange(<span class="string">"amqpAdmin.exchanger"</span>, <span class="keyword">true</span>, <span class="keyword">false</span>));</span><br><span class="line">    </span><br><span class="line">       amqpAdmin.declareQueue(<span class="keyword">new</span> Queue(<span class="string">"adminAmqp.suzhou"</span>));</span><br><span class="line">    </span><br><span class="line">       amqpAdmin.declareBinding(<span class="keyword">new</span> Binding(<span class="string">"adminAmqp.suzhou"</span>, Binding.DestinationType.QUEUE, <span class="string">"amqpAdmin.exchanger"</span>, <span class="string">"adminAmqp.suzhou"</span>, <span class="keyword">null</span>));</span><br><span class="line">       </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/24/SpringBoot整合RabbitMQ/" data-id="cjzpcakkm000igktskc706k9z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-typora换行问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/24/typora换行问题/" class="article-date">
+  <time datetime="2019-08-24T07:11:47.783Z" itemprop="datePublished">2019-08-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/24/typora换行问题/">typora换行问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="typora换行问题"><a href="#typora换行问题" class="headerlink" title="typora换行问题"></a>typora换行问题</h1><ul>
+<li><p>typora换行会自动按照前面的格式进行匹配</p>
+</li>
+<li><p>windows按  <strong>Ctrl +【</strong>    键 会 清除前面的格式</p>
+</li>
+<li><p>mac按   <strong>command+【</strong>     键 会 清除前面的格式</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/24/typora换行问题/" data-id="cjzpcakll0015gktsdj0tyn6y" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/typora/">typora</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-SpringBoot整合Redis" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/23/SpringBoot整合Redis/" class="article-date">
@@ -126,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/23/SpringBoot整合Redis/" data-id="cjzoa7vqx0009l8ts1nofrnkg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/23/SpringBoot整合Redis/" data-id="cjzpcakkq000jgktsyza4e75f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
@@ -244,7 +413,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/23/日语学习day1/" data-id="cjzoa7vs6000ul8ts1i9z4168" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/23/日语学习day1/" data-id="cjzpcakm9001ogkts1ezn9qct" class="article-share-link">Share</a>
       
       
     </footer>
@@ -289,7 +458,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/23/Invalid-bound-statement-(not-found)报错/" data-id="cjzoa7vqg0001l8tsrwfkscil" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/23/Invalid-bound-statement-(not-found)报错/" data-id="cjzpcakit0000gktse2yqyjn4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/error/">error</a></li></ul>
@@ -340,7 +509,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/23/time-zone-报错/" data-id="cjzoa7vs3000sl8tsgi4jbm0v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/23/time-zone-报错/" data-id="cjzpcaklm0016gktsfak7lhg5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/error/">error</a></li></ul>
@@ -488,7 +657,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/21/怎么进行职业规划？/" data-id="cjzoa7vst001gl8tsriomnsio" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/21/怎么进行职业规划？/" data-id="cjzpcakm7001ngktsi96hl2fh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -568,7 +737,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/17/Mysql练习3/" data-id="cjzoa7vqt0008l8ts8csgf6fp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/17/Mysql练习3/" data-id="cjzpcakki000ggktsuzconr5t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/">Mysql</a></li></ul>
@@ -621,7 +790,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/17/return,break,continue/" data-id="cjzoa7vsu001hl8tstgc8xjs6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/17/return,break,continue/" data-id="cjzpcaklh0010gktsp55qr4wv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/return-brean-continue/">return;brean;continue</a></li></ul>
@@ -680,163 +849,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/17/Java数组/" data-id="cjzoa7vqo0004l8tsmbi111m3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/17/Java数组/" data-id="cjzpcakjo0004gktsvn0k459t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数组/">数组</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SQL练习02" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/16/SQL练习02/" class="article-date">
-  <time datetime="2019-08-16T12:48:28.342Z" itemprop="datePublished">2019-08-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/16/SQL练习02/">SQL练习</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SQL-练习"><a href="#SQL-练习" class="headerlink" title="SQL 练习"></a>SQL 练习</h1><ol>
-<li>查询至少有一门课与学号为“01”的学生所学课程相同的学生的学号和姓名（重点）</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s_id,</span><br><span class="line">	s_name </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	student </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	s_id <span class="keyword">IN</span> (</span><br><span class="line">	<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span></span><br><span class="line">		s_id </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		score </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">		c_id <span class="keyword">IN</span> ( <span class="keyword">SELECT</span> c_id <span class="keyword">FROM</span> score <span class="keyword">WHERE</span> s_id = <span class="string">'01'</span> ) </span><br><span class="line">	<span class="keyword">AND</span> s_id != <span class="string">'01'</span> </span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>查询和“01”号同学所学课程完全相同的其他同学的学号(重点)</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s_id </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">	s_id </span><br><span class="line"><span class="keyword">HAVING</span></span><br><span class="line">	<span class="keyword">count</span>( c_id ) = ( <span class="keyword">SELECT</span> <span class="keyword">count</span>( c_id ) <span class="keyword">FROM</span> score <span class="keyword">WHERE</span> s_id = <span class="string">'01'</span> ) </span><br><span class="line">	<span class="keyword">AND</span> s_id != <span class="string">'01'</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>查询没学过”张三”老师讲授的任一门课程的学生姓名（重点，能做出来）</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询没学过"张三"老师讲授的任一门课程的学生姓名 和47题一样（重点，能做出来）</span></span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s_name </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	student </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	s_id <span class="keyword">NOT</span> <span class="keyword">IN</span> (</span><br><span class="line">	<span class="keyword">SELECT</span></span><br><span class="line">		s_id </span><br><span class="line">	<span class="keyword">FROM</span></span><br><span class="line">		score <span class="keyword">AS</span> s</span><br><span class="line">		<span class="keyword">INNER</span> <span class="keyword">JOIN</span> course <span class="keyword">AS</span> c <span class="keyword">ON</span> c.c_id = s.c_id</span><br><span class="line">		<span class="keyword">INNER</span> <span class="keyword">JOIN</span> teacher <span class="keyword">AS</span> t <span class="keyword">ON</span> t.t_id = c.t_id </span><br><span class="line">	<span class="keyword">WHERE</span></span><br><span class="line">	t_name = <span class="string">'张三'</span> </span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩（重点）</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s.s_id,</span><br><span class="line">	s.s_name,</span><br><span class="line">	a.avg </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	student <span class="keyword">AS</span> s</span><br><span class="line">	<span class="keyword">INNER</span> <span class="keyword">JOIN</span> ( <span class="keyword">SELECT</span> s_id, <span class="keyword">avg</span>( s_score ) <span class="keyword">AS</span> <span class="keyword">avg</span> <span class="keyword">FROM</span> score <span class="keyword">WHERE</span> s_score &lt; <span class="number">60</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> s_id <span class="keyword">HAVING</span> <span class="keyword">count</span>( c_id ) &gt;= <span class="number">2</span> ) <span class="keyword">AS</span> a <span class="keyword">ON</span> s.s_id = a.s_id</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>检索”01”课程分数小于60，按分数降序排列的学生信息</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s.s_id,</span><br><span class="line">	s.s_name,</span><br><span class="line">	s.s_birth,</span><br><span class="line">	s.s_sex,</span><br><span class="line">	a.s_score </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	student <span class="keyword">AS</span> s</span><br><span class="line">	<span class="keyword">INNER</span> <span class="keyword">JOIN</span> ( <span class="keyword">SELECT</span> s_id, s_score <span class="keyword">FROM</span> score <span class="keyword">WHERE</span> s_score &lt; <span class="number">60</span> <span class="keyword">AND</span> c_id = <span class="string">'01'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> s_score <span class="keyword">DESC</span> ) <span class="keyword">AS</span> a <span class="keyword">ON</span> s.s_id = a.s_id</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>检索”01”课程分数小于60，按分数升序排列的学生信息</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s.s_id,</span><br><span class="line">	s.s_name,</span><br><span class="line">	s.s_birth,</span><br><span class="line">	s.s_sex,</span><br><span class="line">	a.s_score </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	student <span class="keyword">AS</span> s</span><br><span class="line">	<span class="keyword">INNER</span> <span class="keyword">JOIN</span> ( <span class="keyword">SELECT</span> s_id, s_score <span class="keyword">FROM</span> score <span class="keyword">WHERE</span> s_score &lt; <span class="number">60</span> <span class="keyword">AND</span> c_id = <span class="string">'01'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> s_score <span class="keyword">ASC</span> ) <span class="keyword">AS</span> a <span class="keyword">ON</span> s.s_id = a.s_id</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li>按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩(重重点)</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- SQL中的别名 一般不用加双引号和单引号 直接 把别名输入在后边即可，或者加个as</span></span><br><span class="line"><span class="comment">-- 为01，字符值时，也可不用加，如：where name = 李赏 如： where id = 01</span></span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s_id 学号,</span><br><span class="line">	<span class="keyword">max</span>( <span class="keyword">CASE</span> <span class="keyword">WHEN</span> c_id = <span class="number">02</span> <span class="keyword">THEN</span> s_score <span class="keyword">ELSE</span> <span class="literal">NULL</span> <span class="keyword">END</span> )语文,</span><br><span class="line">	<span class="keyword">min</span>( <span class="keyword">CASE</span> <span class="keyword">WHEN</span> c_id = <span class="number">01</span> <span class="keyword">THEN</span> s_score <span class="keyword">ELSE</span> <span class="literal">NULL</span> <span class="keyword">END</span> ) 数学,</span><br><span class="line">	<span class="keyword">max</span>( <span class="keyword">CASE</span> <span class="keyword">WHEN</span> c_id = <span class="number">03</span> <span class="keyword">THEN</span> s_score <span class="keyword">ELSE</span> <span class="literal">NULL</span> <span class="keyword">END</span> )英语,</span><br><span class="line">	<span class="keyword">avg</span>( s_score ) 平均成绩 </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">	s_id </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">	平均成绩 <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
-
-<ol start="8">
-<li><p>查询各科成绩最高分、最低分和平均分：以如下形式显示：课程ID，课程name，最高分，最低分，平均分，及格率，中等率，优良率，优秀率及格为&gt;=60，中等为：70-80，优良为：80-90，优秀为：&gt;=90 (超级重点)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> s.c_id </span><br><span class="line">, c.c_name</span><br><span class="line">, <span class="keyword">MAX</span>(s.s_score) 最高分</span><br><span class="line">, <span class="keyword">MIN</span>(s.s_score) 最低分</span><br><span class="line">, <span class="keyword">AVG</span>(s.s_score) 平均分</span><br><span class="line">, <span class="keyword">SUM</span>(<span class="keyword">case</span> <span class="keyword">when</span> s.s_score &gt;= <span class="number">60</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) / <span class="keyword">COUNT</span>(s.s_id) 及格率</span><br><span class="line">, <span class="keyword">SUM</span>(<span class="keyword">case</span> <span class="keyword">when</span> s.s_score &gt;= <span class="number">70</span> <span class="keyword">and</span> s.s_score &lt;<span class="number">80</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> ) / <span class="keyword">COUNT</span>(s.s_id) 中等率</span><br><span class="line">, <span class="keyword">SUM</span>(<span class="keyword">case</span> <span class="keyword">when</span> s.s_score &gt;= <span class="number">80</span> <span class="keyword">and</span> s.s_score &lt;<span class="number">90</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> ) / <span class="keyword">COUNT</span>(s.s_id) 优良率</span><br><span class="line">, <span class="keyword">SUM</span>(<span class="keyword">case</span> <span class="keyword">when</span> s.s_score &gt;= <span class="number">90</span> <span class="keyword">then</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> ) / <span class="keyword">COUNT</span>(s.s_id) 优秀率</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> score <span class="keyword">as</span> s</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">JOIN</span> course <span class="keyword">as</span> c </span><br><span class="line"><span class="keyword">on</span> s.c_id = c.c_id</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> c_id</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>按各科成绩进行排序，并显示排名(重点row_number)</p>
-</li>
-</ol>
-   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- rank() over (partition by ..(按什么分组)(每一组都是从1开始的) order by ..(按什么排序))</span></span><br><span class="line">		<span class="comment">--&gt; 跳跃式 排序，如：第二名第三名成绩一样，他们排名都是2， 第三名下个直接是4</span></span><br><span class="line"><span class="comment">-- dense_rank() over (partition by ..(按什么分组) order by ..(按什么排序))</span></span><br><span class="line">		<span class="comment">--&gt; 连续 排序，如：第二名第三名成绩一样，他们排名都是2， 第三名下个直接是3</span></span><br><span class="line"><span class="comment">-- row_number() over (partition by ..(按什么分组) order by ..(按什么排序))</span></span><br><span class="line">		<span class="comment">--&gt; 连续 排序，如：第二名第三名成绩一样，第一个排名是2另一个排名3，， 第三名下个直接是4</span></span><br><span class="line">		</span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s_id,</span><br><span class="line">	c_id,</span><br><span class="line">	s_score,</span><br><span class="line">	ROW_number () <span class="keyword">over</span> ( <span class="keyword">PARTITION</span> <span class="keyword">BY</span> c_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> s_score <span class="keyword">DESC</span> ) <span class="keyword">AS</span> <span class="keyword">rank</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score</span><br></pre></td></tr></table></figure>
-
-<ol start="10">
-<li><p>查询学生的总成绩并进行排名（不重点）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s_id,</span><br><span class="line">	<span class="keyword">SUM</span>( s_score ) <span class="keyword">AS</span> 总成绩 </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">	s_id </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span></span><br><span class="line">	总成绩 <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询不同老师所教不同课程平均分从高到低显示(不重点)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	c_id,</span><br><span class="line">	<span class="keyword">AVG</span>( s_score ) </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">	c_id <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询所有课程的成绩第2名到第3名的学生信息及该课程成绩（重要 )</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s.s_id,</span><br><span class="line">	st.s_name,</span><br><span class="line">	st.s_sex,</span><br><span class="line">	st.s_birth,</span><br><span class="line">	s.c_id,</span><br><span class="line">	s.s_score,</span><br><span class="line">	row_number <span class="keyword">over</span> ( <span class="keyword">PARTITION</span> <span class="keyword">BY</span> c_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> s_score <span class="keyword">DESC</span> ) <span class="keyword">rank</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score <span class="keyword">AS</span> s</span><br><span class="line">	<span class="keyword">INNER</span> <span class="keyword">JOIN</span> student <span class="keyword">AS</span> st <span class="keyword">ON</span> st.s_id = s.s_id </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	s.rank <span class="keyword">IN</span> ( <span class="number">2</span>, <span class="number">3</span> )</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用分段[100-85],[85-70],[70-60],[&lt;60]来统计各科成绩，分别统计各分数段人数：课程ID和课程名称</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s.c_id,</span><br><span class="line">	c.c_name,</span><br><span class="line">	<span class="keyword">sum</span>( <span class="keyword">CASE</span> <span class="keyword">WHEN</span> s.s_score &lt;= <span class="number">100</span> <span class="keyword">AND</span> s.s_score &gt; <span class="number">85</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> ) <span class="string">'[100 , 85)'</span>,</span><br><span class="line">	<span class="keyword">count</span>( <span class="keyword">CASE</span> <span class="keyword">WHEN</span> s.s_score &lt;= <span class="number">85</span> <span class="keyword">AND</span> s.s_score &gt; <span class="number">70</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="literal">NULL</span> <span class="keyword">END</span> ) <span class="string">'[85 , 70)'</span>,</span><br><span class="line">	<span class="keyword">sum</span>( <span class="keyword">CASE</span> <span class="keyword">WHEN</span> s.s_score &lt;= <span class="number">70</span> <span class="keyword">AND</span> s.s_score &gt; <span class="number">60</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> ) <span class="string">'[70 , 60)'</span>,</span><br><span class="line">	<span class="keyword">sum</span>( <span class="keyword">CASE</span> <span class="keyword">WHEN</span> s.s_score &lt; <span class="number">60</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> ) <span class="string">'&lt;60'</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score <span class="keyword">AS</span> s</span><br><span class="line">	<span class="keyword">INNER</span> <span class="keyword">JOIN</span> course <span class="keyword">AS</span> c <span class="keyword">ON</span> s.c_id = c.c_id </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">	s.c_id</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询学生平均成绩及其名次（重点）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s_id,</span><br><span class="line">	<span class="keyword">AVG</span>( s_score ) <span class="keyword">AS</span> <span class="keyword">avg</span>,</span><br><span class="line">	row_number () <span class="keyword">over</span> ( <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">avg</span> <span class="keyword">DESC</span> ) </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">	s_id</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询各科成绩前三名的记录（不考虑成绩并列情况）（重点 ）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	c_id,</span><br><span class="line">	row_number () <span class="keyword">over</span> ( <span class="keyword">PARTITION</span> <span class="keyword">BY</span> c_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> s_score <span class="keyword">DESC</span> ) <span class="keyword">AS</span> <span class="keyword">rank</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score </span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	<span class="keyword">rank</span> <span class="keyword">IN</span> ( <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> )</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询每门课程被选修的学生数(不重点)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	c_id,</span><br><span class="line">	<span class="keyword">count</span>( s_id ) </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">	c_id</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询出只有两门课程的全部学生的学号和姓名(不重点)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- GROUP BY 不能加where 筛选</span></span><br><span class="line"><span class="comment">-- 只能有having进行筛选</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- GROUP BY .. having.. 必须在表连接之后进行操作</span></span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	s.s_id,</span><br><span class="line">	st.s_name,</span><br><span class="line">	<span class="keyword">count</span>( s.s_id ) <span class="keyword">AS</span> cid </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	score <span class="keyword">AS</span> s</span><br><span class="line">	<span class="keyword">INNER</span> <span class="keyword">JOIN</span> student <span class="keyword">AS</span> st <span class="keyword">ON</span> st.s_id = s.s_id </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">	s.s_id </span><br><span class="line"><span class="keyword">HAVING</span></span><br><span class="line">	cid = <span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/16/SQL练习02/" data-id="cjzoa7vr1000bl8ts5g4y2lnt" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/">SQL</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-linux-连接网络失败" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/14/linux-连接网络失败/" class="article-date">
-  <time datetime="2019-08-14T08:07:51.809Z" itemprop="datePublished">2019-08-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/14/linux-连接网络失败/">linux 连接网络失败</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="linux-虚拟机下-连接网络失败原因"><a href="#linux-虚拟机下-连接网络失败原因" class="headerlink" title="linux 虚拟机下 连接网络失败原因"></a>linux 虚拟机下 连接网络失败原因</h2><ul>
-<li>查看本地下的 网络，适配器模式下的VMnet8，属性下的ipv4，</li>
-</ul>
-<p>与linux本地 连接的设置保持一致</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/14/linux-连接网络失败/" data-id="cjzoa7vrs000ml8tspv9yht8v" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
 
     </footer>
   </div>
@@ -863,7 +879,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/">error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/return-brean-continue/">return;brean;continue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/">error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/return-brean-continue/">return;brean;continue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typora/">typora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li></ul>
     </div>
   </div>
 
@@ -873,7 +889,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 20px;">Mysql</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/WebSocket/" style="font-size: 10px;">WebSocket</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/return-brean-continue/" style="font-size: 10px;">return;brean;continue</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a>
+      <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 20px;">Mysql</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/WebSocket/" style="font-size: 10px;">WebSocket</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/return-brean-continue/" style="font-size: 10px;">return;brean;continue</a> <a href="/tags/typora/" style="font-size: 10px;">typora</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a>
     </div>
   </div>
 
@@ -895,6 +911,14 @@
       <ul>
         
           <li>
+            <a href="/2019/08/24/SpringBoot整合RabbitMQ/">SpringBoot整合RabbitMQ</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/24/typora换行问题/">typora换行问题</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/23/SpringBoot整合Redis/">SpringBoot整合Redis</a>
           </li>
         
@@ -904,14 +928,6 @@
         
           <li>
             <a href="/2019/08/23/Invalid-bound-statement-(not-found)报错/">Invalid bound statement (not found)报错</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/23/time-zone-报错/">time zone 报错</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/21/怎么进行职业规划？/">(no title)</a>
           </li>
         
       </ul>
