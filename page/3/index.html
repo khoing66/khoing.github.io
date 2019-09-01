@@ -66,6 +66,306 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-redis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/12/redis/" class="article-date">
+  <time datetime="2019-08-12T15:03:35.936Z" itemprop="datePublished">2019-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><h2 id="简单介绍与应用"><a href="#简单介绍与应用" class="headerlink" title="简单介绍与应用"></a>简单介绍与应用</h2><ol>
+<li><p>介绍</p>
+<ul>
+<li>Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。</li>
+<li>换句话说，Redis就像是一个HashMap，不过不是在JVM中运行，而是以一个独立进程的形式运行。</li>
+<li>一般说来，会被当作缓存使用。因为它比数据库(mysql)快，所以常用的数据，可以考虑放在这里，这样就提高了性能。</li>
+</ul>
+</li>
+<li><p>常见命令</p>
+<ol>
+<li><p>String字符串</p>
+<ul>
+<li>SET key value                   设置key=value</li>
+<li>GET key                         获得键key对应的值</li>
+<li>GETRANGE key start end          得到字符串的子字符串存放在一个键</li>
+<li>GETSET key value                设置键的字符串值，并返回旧值</li>
+<li>GETBIT key offset               返回存储在键位值的字符串值的偏移</li>
+<li>MGET key1 [key2..]              得到所有的给定键的值</li>
+<li>SETBIT key offset value         设置或清除该位在存储在键的字符串值偏移</li>
+<li>SETEX key seconds value         键到期时设置值</li>
+<li>SETNX key value                 设置键的值，只有当该键不存在</li>
+<li>SETRANGE key offset value       覆盖字符串的一部分从指定键的偏移</li>
+<li>STRLEN key                      得到存储在键的值的长度</li>
+<li>MSET key value [key value…]   设置多个键和多个值</li>
+<li>MSETNX key value [key value…] 设置多个键多个值，只有在当没有按键的存在时</li>
+<li>PSETEX key milliseconds value   设置键的毫秒值和到期时间</li>
+<li>INCR key                        增加键的整数值一次</li>
+<li>INCRBY key increment            由给定的数量递增键的整数值</li>
+<li>INCRBYFLOAT key increment       由给定的数量递增键的浮点值</li>
+<li>DECR key                        递减键一次的整数值</li>
+<li>DECRBY key decrement            由给定数目递减键的整数值</li>
+<li>APPEND key value                追加值到一个键</li>
+<li>DEL key                         如果存在删除键</li>
+<li>DUMP key                        返回存储在指定键的值的序列化版本</li>
+<li>EXISTS key                      此命令检查该键是否存在</li>
+<li>EXPIRE key seconds              指定键的过期时间</li>
+<li>EXPIREAT key timestamp          指定的键过期时间。在这里，时间是在Unix时间戳格式</li>
+<li>PEXPIRE key milliseconds        设置键以毫秒为单位到期</li>
+<li>PEXPIREAT key milliseconds-timestamp        设置键在Unix时间戳指定为毫秒到期</li>
+<li>KEYS pattern                    查找与指定模式匹配的所有键</li>
+<li>MOVE key db                     移动键到另一个数据库</li>
+<li>PERSIST key                     移除过期的键</li>
+<li>PTTL key                        以毫秒为单位获取剩余时间的到期键。</li>
+<li>TTL key                         获取键到期的剩余时间。</li>
+<li>RANDOMKEY                       从Redis返回随机键</li>
+<li>RENAME key newkey               更改键的名称</li>
+<li>RENAMENX key newkey             重命名键，如果新的键不存在</li>
+<li>TYPE key                        返回存储在键的数据类型的值。</li>
+</ul>
+</li>
+<li><p>List列表</p>
+<ul>
+<li>BLPOP key1 [key2 ] timeout 取出并获取列表中的第一个元素，或阻塞，直到有可用</li>
+<li>BRPOP key1 [key2 ] timeout 取出并获取列表中的最后一个元素，或阻塞，直到有可用</li>
+<li>BRPOPLPUSH source destination timeout 从列表中弹出一个值，它推到另一个列表并返回它;或阻塞，直到有可用</li>
+<li>LINDEX key index 从一个列表其索引获取对应的元素</li>
+<li>LINSERT key BEFORE|AFTER pivot value 在列表中的其他元素之后或之前插入一个元素</li>
+<li>LLEN key 获取列表的长度</li>
+<li>LPOP key 获取并取出列表中的第一个元素</li>
+<li>LPUSH key value1 [value2] 在前面加上一个或多个值的列表</li>
+<li>LPUSHX key value 在前面加上一个值列表，仅当列表中存在</li>
+<li>LRANGE key start stop 从一个列表获取各种元素</li>
+<li>LREM key count value 从列表中删除元素</li>
+<li>LSET key index value 在列表中的索引设置一个元素的值</li>
+<li>LTRIM key start stop 修剪列表到指定的范围内</li>
+<li>RPOP key 取出并获取列表中的最后一个元素</li>
+<li>RPOPLPUSH source destination 删除最后一个元素的列表，将其附加到另一个列表并返回它</li>
+<li>RPUSH key value1 [value2] 添加一个或多个值到列表</li>
+<li>RPUSHX key value 添加一个值列表，仅当列表中存在</li>
+</ul>
+</li>
+<li><p>Hash 字典，哈希表</p>
+<ul>
+<li>HDEL key field[field…] 删除对象的一个或几个属性域，不存在的属性将被忽略</li>
+<li>HEXISTS key field 查看对象是否存在该属性域</li>
+<li>HGET key field 获取对象中该field属性域的值</li>
+<li>HGETALL key 获取对象的所有属性域和值</li>
+<li>HINCRBY key field value 将该对象中指定域的值增加给定的value，原子自增操作，只能是integer的属性值可以使用</li>
+<li>HINCRBYFLOAT key field increment 将该对象中指定域的值增加给定的浮点数</li>
+<li>HKEYS key 获取对象的所有属性字段</li>
+<li>HVALS key 获取对象的所有属性值</li>
+<li>HLEN key 获取对象的所有属性字段的总数</li>
+<li>HMGET key field[field…] 获取对象的一个或多个指定字段的值</li>
+<li>HSET key field value 设置对象指定字段的值</li>
+<li>HMSET key field value [field value …] 同时设置对象中一个或多个字段的值</li>
+<li>HSETNX key field value 只在对象不存在指定的字段时才设置字段的值</li>
+<li>HSTRLEN key field 返回对象指定field的value的字符串长度，如果该对象或者field不存在，返回0.</li>
+<li>HSCAN key cursor [MATCH pattern] [COUNT count] 类似SCAN命令</li>
+</ul>
+</li>
+<li><p>set集合</p>
+<ul>
+<li>SADD key member [member …] 添加一个或者多个元素到集合(set)里</li>
+<li>SCARD key 获取集合里面的元素数量</li>
+<li>SDIFF key [key …] 获得队列不存在的元素</li>
+<li>SDIFFSTORE destination key [key …] 获得队列不存在的元素，并存储在一个关键的结果集</li>
+<li>SINTER key [key …] 获得两个集合的交集</li>
+<li>SINTERSTORE destination key [key …] 获得两个集合的交集，并存储在一个集合中</li>
+<li>SISMEMBER key member 确定一个给定的值是一个集合的成员</li>
+<li>SMEMBERS key 获取集合里面的所有key</li>
+<li>SMOVE source destination member 移动集合里面的一个key到另一个集合</li>
+<li>SPOP key [count] 获取并删除一个集合里面的元素</li>
+<li>SRANDMEMBER key [count] 从集合里面随机获取一个元素</li>
+<li>SREM key member [member …] 从集合里删除一个或多个元素，不存在的元素会被忽略</li>
+<li>SUNION key [key …] 添加多个set元素</li>
+<li>SUNIONSTORE destination key [key …] 合并set元素，并将结果存入新的set里面</li>
+<li>SSCAN key cursor [MATCH pattern] [COUNT count] 迭代set里面的元素</li>
+</ul>
+</li>
+<li><p>Sorted set有序集合</p>
+<ul>
+<li>ZADD key score1 member1 [score2 member2] 添加一个或多个成员到有序集合，或者如果它已经存在更新其分数</li>
+<li>ZCARD key 得到的有序集合成员的数量</li>
+<li>ZCOUNT key min max 计算一个有序集合成员与给定值范围内的分数</li>
+<li>ZINCRBY key increment member 在有序集合增加成员的分数</li>
+<li>ZINTERSTORE destination numkeys key [key …] 多重交叉排序集合，并存储生成一个新的键有序集合。</li>
+<li>ZLEXCOUNT key min max 计算一个给定的字典范围之间的有序集合成员的数量</li>
+<li>ZRANGE key start stop [WITHSCORES] 由索引返回一个成员范围的有序集合（从低到高）</li>
+<li>ZRANGEBYLEX key min max [LIMIT offset count]返回一个成员范围的有序集合（由字典范围）</li>
+<li>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT] 返回有序集key中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员，有序集成员按 score 值递增(从小到大)次序排列</li>
+<li>ZRANK key member 确定成员的索引中有序集合</li>
+<li>ZREM key member [member …] 从有序集合中删除一个或多个成员，不存在的成员将被忽略</li>
+<li>ZREMRANGEBYLEX key min max 删除所有成员在给定的字典范围之间的有序集合</li>
+<li>ZREMRANGEBYRANK key start stop 在给定的索引之内删除所有成员的有序集合</li>
+<li>ZREMRANGEBYSCORE key min max 在给定的分数之内删除所有成员的有序集合</li>
+<li>ZREVRANGE key start stop [WITHSCORES] 返回一个成员范围的有序集合，通过索引，以分数排序，从高分到低分</li>
+<li>ZREVRANGEBYSCORE key max min [WITHSCORES] 返回一个成员范围的有序集合，以socre排序从高到低</li>
+<li>ZREVRANK key member 确定一个有序集合成员的索引，以分数排序，从高分到低分</li>
+<li>ZSCORE key member 获取给定成员相关联的分数在一个有序集合</li>
+<li>ZUNIONSTORE destination numkeys key [key …] 添加多个集排序，所得排序集合存储在一个新的键</li>
+<li>ZSCAN key cursor [MATCH pattern] [COUNT count] 增量迭代排序元素集和相关的分数</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Jedis</p>
+<ol>
+<li><p>Jedis：在常见命令中，使用各种Redis自带客户端的命令行方式访问Redis服务。 而在实际工作中却需要用到Java代码才能访问，使用第三方jar包 ：Jedis就能方便地访问Redis的各种服务了。</p>
+</li>
+<li> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testBasicString</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//-----添加数据----------</span></span><br><span class="line">    jedis.set(<span class="string">"name"</span>,<span class="string">"meepo"</span>);<span class="comment">//向key--&gt;name中放入了value--&gt;meepo</span></span><br><span class="line">    System.out.println(jedis.get(<span class="string">"name"</span>));<span class="comment">//执行结果：meepo</span></span><br><span class="line">    <span class="comment">//-----修改数据-----------</span></span><br><span class="line">    <span class="comment">//1、在原来基础上修改</span></span><br><span class="line">    jedis.append(<span class="string">"name"</span>,<span class="string">"dota"</span>);   <span class="comment">//很直观，类似map 将dota append到已经有的value之后</span></span><br><span class="line">    System.out.println(jedis.get(<span class="string">"name"</span>));<span class="comment">//执行结果:meepodota</span></span><br><span class="line">    <span class="comment">//2、直接覆盖原来的数据</span></span><br><span class="line">    jedis.set(<span class="string">"name"</span>,<span class="string">"poofu"</span>);</span><br><span class="line">    System.out.println(jedis.get(<span class="string">"name"</span>));<span class="comment">//执行结果：poofu</span></span><br><span class="line">    <span class="comment">//删除key对应的记录</span></span><br><span class="line">    jedis.del(<span class="string">"name"</span>);</span><br><span class="line">    System.out.println(jedis.get(<span class="string">"name"</span>));<span class="comment">//执行结果：null</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * mset相当于</span></span><br><span class="line"><span class="comment">    * jedis.set("name","meepo");</span></span><br><span class="line"><span class="comment">    * jedis.set("dota","poofu");</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    jedis.mset(<span class="string">"name"</span>,<span class="string">"meepo"</span>,<span class="string">"dota"</span>,<span class="string">"poofu"</span>);</span><br><span class="line">    System.out.println(jedis.mget(<span class="string">"name"</span>,<span class="string">"dota"</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* jedis操作Map</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMap</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Map&lt;String,String&gt; user=<span class="keyword">new</span> HashMap&lt;String,String&gt;();</span><br><span class="line">    user.put(<span class="string">"name"</span>,<span class="string">"meepo"</span>);</span><br><span class="line">    user.put(<span class="string">"pwd"</span>,<span class="string">"password"</span>);</span><br><span class="line">    jedis.hmset(<span class="string">"user"</span>,user);</span><br><span class="line">    <span class="comment">//取出user中的name，执行结果:[meepo]--&gt;注意结果是一个泛型的List</span></span><br><span class="line">    <span class="comment">//第一个参数是存入redis中map对象的key，后面跟的是放入map中的对象的key，后面的key可以跟多个，是可变参数 </span></span><br><span class="line">    List&lt;String&gt; rsmap = jedis.hmget(<span class="string">"user"</span>, <span class="string">"name"</span>);</span><br><span class="line">    System.out.println(rsmap);</span><br><span class="line">    <span class="comment">//删除map中的某个键值</span></span><br><span class="line">    <span class="comment">//jedis.hdel("user","pwd");</span></span><br><span class="line">    System.out.println(jedis.hmget(<span class="string">"user"</span>, <span class="string">"pwd"</span>)); <span class="comment">//因为删除了，所以返回的是null</span></span><br><span class="line">    System.out.println(jedis.hlen(<span class="string">"user"</span>)); <span class="comment">//返回key为user的键中存放的值的个数1</span></span><br><span class="line">    System.out.println(jedis.exists(<span class="string">"user"</span>));<span class="comment">//是否存在key为user的记录 返回true</span></span><br><span class="line">    System.out.println(jedis.hkeys(<span class="string">"user"</span>));<span class="comment">//返回map对象中的所有key  [pwd, name]</span></span><br><span class="line">    System.out.println(jedis.hvals(<span class="string">"user"</span>));<span class="comment">//返回map对象中的所有value  [meepo, password]</span></span><br><span class="line">    Iterator&lt;String&gt; iter=jedis.hkeys(<span class="string">"user"</span>).iterator();</span><br><span class="line">    <span class="keyword">while</span> (iter.hasNext())&#123;</span><br><span class="line">        String key = iter.next();</span><br><span class="line">        System.out.println(key+<span class="string">":"</span>+jedis.hmget(<span class="string">"user"</span>,key));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* jedis操作List</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testList</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//开始前，先移除所有的内容</span></span><br><span class="line">    jedis.del(<span class="string">"java framework"</span>);</span><br><span class="line">    <span class="comment">// 第一个是key，第二个是起始位置，第三个是结束位置，jedis.llen获取长度 -1表示取得所有</span></span><br><span class="line">    System.out.println(jedis.lrange(<span class="string">"java framework"</span>,<span class="number">0</span>,-<span class="number">1</span>));</span><br><span class="line"><span class="comment">//先向key java framework中存放三条数据</span></span><br><span class="line">jedis.lpush(<span class="string">"java framework"</span>,<span class="string">"spring"</span>);</span><br><span class="line">jedis.lpush(<span class="string">"java framework"</span>,<span class="string">"struts"</span>);</span><br><span class="line">jedis.lpush(<span class="string">"java framework"</span>,<span class="string">"hibernate"</span>);</span><br><span class="line"><span class="comment">//再取出所有数据jedis.lrange是按范围取出，</span></span><br><span class="line"><span class="comment">// 第一个是key，第二个是起始位置，第三个是结束位置，jedis.llen获取长度 -1表示取得所有 </span></span><br><span class="line">System.out.println(jedis.lrange(<span class="string">"java framework"</span>,<span class="number">0</span>,-<span class="number">1</span>)); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* jedis操作Set</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSet</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//添加 </span></span><br><span class="line">    jedis.sadd(<span class="string">"sname"</span>,<span class="string">"meepo"</span>);</span><br><span class="line">    jedis.sadd(<span class="string">"sname"</span>,<span class="string">"dota"</span>);</span><br><span class="line">    jedis.sadd(<span class="string">"sname"</span>,<span class="string">"poofu"</span>);</span><br><span class="line">    jedis.sadd(<span class="string">"sname"</span>,<span class="string">"noname"</span>);</span><br><span class="line">        <span class="comment">//移除noname </span></span><br><span class="line">    jedis.srem(<span class="string">"sname"</span>,<span class="string">"noname"</span>); </span><br><span class="line">    System.out.println(jedis.smembers(<span class="string">"sname"</span>));<span class="comment">//获取所有加入的value </span></span><br><span class="line">    System.out.println(jedis.sismember(<span class="string">"sname"</span>, <span class="string">"meepo"</span>));<span class="comment">//判断 meepo 是否是sname集合的元素 </span></span><br><span class="line">    System.out.println(jedis.srandmember(<span class="string">"sname"</span>)); </span><br><span class="line">    System.out.println(jedis.scard(<span class="string">"sname"</span>));<span class="comment">//返回集合的元素个数</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">//keys中传入的可以用通配符</span></span><br><span class="line">    System.out.println(jedis.keys(<span class="string">"*"</span>)); <span class="comment">//返回当前库中所有的key  [sose, sanme, name, dota, foo, sname, java framework, user, braand]</span></span><br><span class="line">    System.out.println(jedis.keys(<span class="string">"*name"</span>));<span class="comment">//返回的sname   [sname, name] </span></span><br><span class="line">    System.out.println(jedis.del(<span class="string">"sanmdde"</span>));<span class="comment">//删除key为sanmdde的对象  删除成功返回1 删除失败（或者不存在）返回 0 </span></span><br><span class="line">    System.out.println(jedis.ttl(<span class="string">"sname"</span>));<span class="comment">//返回给定key的有效时间，如果是-1则表示永远有效</span></span><br><span class="line">    jedis.setex(<span class="string">"timekey"</span>, <span class="number">10</span>, <span class="string">"min"</span>);<span class="comment">//通过此方法，可以指定key的存活（有效时间） 时间为秒</span></span><br><span class="line">    Thread.sleep(<span class="number">5000</span>);<span class="comment">//睡眠5秒后，剩余时间将为&lt;=5</span></span><br><span class="line">    System.out.println(jedis.ttl(<span class="string">"timekey"</span>));   <span class="comment">//输出结果为5</span></span><br><span class="line">    jedis.setex(<span class="string">"timekey"</span>, <span class="number">1</span>, <span class="string">"min"</span>);        <span class="comment">//设为1后，下面再看剩余时间就是1了</span></span><br><span class="line">    System.out.println(jedis.ttl(<span class="string">"timekey"</span>));  <span class="comment">//输出结果为1</span></span><br><span class="line">    System.out.println(jedis.exists(<span class="string">"key"</span>));<span class="comment">//检查key是否存在</span></span><br><span class="line">    System.out.println(jedis.rename(<span class="string">"timekey"</span>,<span class="string">"time"</span>));</span><br><span class="line">    System.out.println(jedis.get(<span class="string">"timekey"</span>));<span class="comment">//因为移除，返回为null</span></span><br><span class="line">    System.out.println(jedis.get(<span class="string">"time"</span>)); <span class="comment">//因为将timekey 重命名为time 所以可以取得值 min</span></span><br><span class="line">    <span class="comment">//jedis 排序 </span></span><br><span class="line">    <span class="comment">//注意，此处的rpush和lpush是List的操作。是一个双向链表（但从表现来看的)</span></span><br><span class="line">    jedis.del(<span class="string">"a"</span>);<span class="comment">//先清除数据，再加入数据进行测试</span></span><br><span class="line">    jedis.rpush(<span class="string">"a"</span>, <span class="string">"1"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"a"</span>,<span class="string">"6"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"a"</span>,<span class="string">"3"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"a"</span>,<span class="string">"9"</span>); </span><br><span class="line">    System.out.println(jedis.lrange(<span class="string">"a"</span>,<span class="number">0</span>,-<span class="number">1</span>));<span class="comment">// [9, 3, 6, 1] </span></span><br><span class="line">    System.out.println(jedis.sort(<span class="string">"a"</span>)); <span class="comment">//[1, 3, 6, 9]  //输入排序后结果 </span></span><br><span class="line">    System.out.println(jedis.lrange(<span class="string">"a"</span>,<span class="number">0</span>,-<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>Springboot集成redis</p>
+<ol>
+<li>导入依赖：</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<pre><code>2. 配置application.properties
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#Redis</span><br><span class="line">#spring.redis.host=127.0.0.1</span><br><span class="line">redis.host=<span class="number">127.0</span>.0.1</span><br><span class="line">## Redis服务器连接端口</span><br><span class="line">redis.port=<span class="number">6379</span></span><br><span class="line">## 连接超时时间（毫秒）</span><br><span class="line">redis.timeout=<span class="number">3</span></span><br><span class="line">## Redis服务器连接密码（默认为空）</span><br><span class="line">redis.password=<span class="number">135246</span></span><br><span class="line">## 连接池中的最大连接数</span><br><span class="line">redis.poolMaxTotal=<span class="number">10</span></span><br><span class="line">## 连接池中的最大空闲连接</span><br><span class="line">redis.poolMaxIdle=<span class="number">10</span></span><br><span class="line">## 连接池最大阻塞等待时间（使用负值表示没有限制）</span><br><span class="line">redis.poolMaxWait=<span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+3. </code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/12/redis/" data-id="ck013z70k0027fgts30eacfp9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Maven父子项目" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/12/Maven父子项目/" class="article-date">
+  <time datetime="2019-08-12T10:38:51.108Z" itemprop="datePublished">2019-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/12/Maven父子项目/">Maven 父子项目</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Maven-父子项目"><a href="#Maven-父子项目" class="headerlink" title="Maven 父子项目"></a>Maven 父子项目</h1><ol>
+<li><p>新建maven父项目</p>
+<ul>
+<li>不要勾选create from archeType（注意不要勾选模板解释一下，父工程其实是空的工程，选用模板到时候还得去删 ）</li>
+<li>pom.xml 中要有<code>&lt;packaging&gt;pom&lt;/packaging&gt;</code></li>
+<li>和  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">    &lt;module&gt;childA&lt;/module&gt;</span><br><span class="line">    &lt;module&gt;childB&lt;/module&gt;</span><br><span class="line">&lt;/modules&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>在父项文件名称右键new-&gt;module -&gt;勾选create from archeType</p>
+<ul>
+<li><p>pom.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;com.sang.main&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;Parent-Moduel&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0.2&lt;/version&gt;</span><br><span class="line">    &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt;  &lt;!--，如果是儿子级别就不用加，孙子级别就要加了--&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指明打包类型<code>&lt;packaging&gt;jar&lt;/packaging&gt;</code></p>
+</li>
+</ul>
+</li>
+<li><p>父项目中，pom.xml,依赖通过<code>&lt;dependecyManagement&gt;</code>引起来，表示子pom可能会用到的jar包依赖</p>
+<ul>
+<li>子pom如果需要引用该jar包，则直接引用即可！不需要加入<code>&lt;version&gt;</code>，便于统一管理。此外也可以加入仅在子pom中用到的jar包</li>
+<li>除了jar包依赖，插件也可以通过这样的方式进行管理</li>
+</ul>
+</li>
+<li><p>如果子pom间存在引用关系，比如childA引用到了childB的jar包</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.module&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;childA-module&lt;/artifactId&gt;       &lt;!--加上childA的依赖--&gt;</span><br><span class="line">    &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/12/Maven父子项目/" data-id="ck013z6xl0005fgts90snkbwc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-WebSocket" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/12/WebSocket/" class="article-date">
+  <time datetime="2019-08-12T06:58:55.271Z" itemprop="datePublished">2019-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/12/WebSocket/">WebSocket</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li>WebSocket概念出来之前，如果一个商品页面要不停地显示最新的价格，那么必须不停地刷新页面，或者用一段js代码每隔几秒钟发消息询问服务器数据，</li>
+<li>而使用WebSocket技术之后，当服务器有了新的数据，会主动通知浏览器。当服务端有新的价格之后，浏览器立马接收到消息。</li>
+</ul>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>节约带宽。 不停地轮询服务端数据这种方式，使用的是http协议，head信息很大，有效数据占比低， 而使用WebSocket方式，头信息很小，有效数据占比高。</li>
+<li>无浪费。 轮询方式有可能轮询10次，才碰到服务端数据更新，那么前9次都白轮询了，因为没有拿到变化的数据。 而WebSocket是由服务器主动回发，来的都是新数据。</li>
+<li>实时性，考虑到服务器压力，使用轮询方式不可能很短的时间间隔，否则服务器压力太多，所以轮询时间间隔都比较长，好几秒，设置十几秒。 而WebSocket是由服务器主动推送过来，实时性是最高的</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://how2j.cn/k/websocket/websocket-nginx/1627.html" target="_blank" rel="noopener">WebSocket</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/12/WebSocket/" data-id="ck013z6yl000sfgtsdncph5nh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebSocket/">WebSocket</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Nginx" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/12/Nginx/" class="article-date">
@@ -130,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/12/Nginx/" data-id="cjzr4nhf600052gtsf7f9e6tc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/12/Nginx/" data-id="ck013z6xt000bfgtszi4av387" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
@@ -170,7 +470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/Springcloud全家桶/" data-id="cjzr4nhg4000s2gtsgl11qghi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/Springcloud全家桶/" data-id="ck013z6yv0012fgtsdlje8tre" class="article-share-link">Share</a>
       
       
     </footer>
@@ -256,7 +556,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/git指令/" data-id="cjzr4nhg6000u2gtsxp3v0mz6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/git指令/" data-id="ck013z6yt0010fgts7jdjw5x2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
@@ -341,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringBoot配置/" data-id="cjzr4nhfw000l2gtsmv8tk8f3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/SpringBoot配置/" data-id="ck013z6y9000jfgtsrldjk6r4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li></ul>
@@ -390,7 +690,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/idea中连接mysql/" data-id="cjzr4nhg2000q2gtsbdykuvuy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/idea中连接mysql/" data-id="ck013z6yp000wfgtsggj15llk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/">Mysql</a></li></ul>
@@ -438,106 +738,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/MysqlError/" data-id="cjzr4nhfa00082gtsl41qrr5j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/MysqlError/" data-id="ck013z6xj0004fgtsc9qgmo5c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SpringBoot学习笔记1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/10/SpringBoot学习笔记1/" class="article-date">
-  <time datetime="2019-08-10T03:53:00.000Z" itemprop="datePublished">2019-08-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/10/SpringBoot学习笔记1/">Spring Cloud学习（1）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Spring-Cloud学习（1）"><a href="#Spring-Cloud学习（1）" class="headerlink" title="Spring Cloud学习（1）"></a>Spring Cloud学习（1）</h1><h2 id="单体架构"><a href="#单体架构" class="headerlink" title="单体架构"></a>单体架构</h2><ul>
-<li>单体架构好处：<ul>
-<li>开发、测试、部署方便，直接打成jar包或war包就可以了</li>
-</ul>
-</li>
-<li>弊端：<ul>
-<li>高访问、高并发的上限是固定的</li>
-<li>比如一个单体架构，能够承受 1000次访问/秒。 但是访问量达到 2000次/秒的时候，就会非常卡顿，严重影响业务，并且仅仅依靠单体架构本身，很难突破这个瓶颈了。这时分布式和集群就出现了。</li>
-</ul>
-</li>
-</ul>
-<h2 id="分布式和集群"><a href="#分布式和集群" class="headerlink" title="分布式和集群"></a>分布式和集群</h2><ul>
-<li>这里从一个简单的单站系统开始，然后一步一步改造成分布式+集群的系统</li>
-</ul>
-<ol>
-<li><p>单体架构例子<br><br>简单的单体架构就是提供数据，展示数据。就是一个典型的单体结构它把两个服务 <u>提供数据</u>和<u>展示数据</u> 放在了一起，这就会出现固有的缺点。</p>
-<ol>
-<li><strong>如果要修改数据部分的代码， 那么必须把整个项目重新编译打包部署。 虽然展示部分，什么都没变但是也会因为重新部署而暂时不能使用，要部署完了，才能使用。</strong></li>
-<li><strong>如果提供数据部分出现了问题，比如有的开发人员改错了，抛出了异常，会导致整个项目不能使用，展示数据部分也因此受到影响。</strong></li>
-<li><strong>性能瓶颈难以突破</strong></li>
-<li>等等。。</li>
-</ol>
-</li>
-<li><p>微服务概念<br>  </p>
-<ul>
-<li>简单来说一个SpringBoot就是一个微服务，并且这个SpringBoot做个事很单纯，一个ProductDemo项目，就可以拆成两个服务，分别是数据微服务、视图微服务。就是两个SpringBoot，只是各自做的事很单纯。</li>
-</ul>
-<ol>
-<li>服务注册<br><br>那么有了微服务，就存在如何管理这个微服务，以及这两个微服务之间如何通信的问题，所以就要引入一个 微服务注册中心概念，这个微服务注册中心在 springcloud 里就叫做 eureka server, 通过它把就可以把微服务注册起来，以供将来调用。</li>
-<li>服务访问<br><br>在业务逻辑上， 视图微服务 需要 数据微服务 的数据，所以就存在一个微服务访问另一个微服务的需要。 而这俩微服务已经被注册中心管理起来了，所以 视图微服务 就可以通过 注册中心定位并访问 数据微服务了。</li>
-</ol>
-</li>
-<li><p>分布式概念</p>
-<ul>
-<li>简单来说，原来在一个SpringBoot中完成的事，现在分为多个SpringBoot共同完成。</li>
-<li>分布式的好处：<ol>
-<li>各个微服务互不影响。如果数据微服务挂了，那么视图微服务不受影响，也可以运行。</li>
-<li>可以让不同的团队开发不同的微服务，他们之间只要约定好接口，彼此之间是低耦合的。</li>
-<li>如果我要更新数据微服务，视图微服务是不受影响的<br><br>这就解决了单体架构的问题了</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>集群</p>
-</li>
-</ol>
-<ul>
-<li>原来数据微服务只有这一个springboot, 现在做同样数据微服务的，有两个 springboot, 他们提供的功能一模一样，只是端口不一样，这样就形成了集群。</li>
-<li>集群的好处：<ol>
-<li>比起一个 springboot, 两个springboot 可以分别部署在两个不同的机器上，那么理论上来说，能够承受的负载就是2倍，这样系统就具备通过横向扩展而提高性能的机制。</li>
-<li>如果 端口8001 挂了，还有 8002 继续提供微服务，这就叫做高可用 。</li>
-</ol>
-</li>
-</ul>
-<h2 id="SpingCloud父子项目"><a href="#SpingCloud父子项目" class="headerlink" title="SpingCloud父子项目"></a>SpingCloud父子项目</h2><ul>
-<li>接下来就要开始做 springcloud 项目了。 springcloud 比较特别，它由多个微服务组成， 所谓的微服务，就是 springboot,。<br>所以可以说 springcloud 由多个 springboot 项目组成， 而这些 springboot 之间又是围绕一个共同目的而存在的。<br>所以，为了便于组织这些 springboot 项目，我们会采用 maven 父子-聚合 项目的方式来开发。</li>
-<li>通过 maven 可以创建父子-聚合项目。 所谓的父子项目，即有一个父项目，有多个子项目。<br>这些子项目，在业务逻辑上，都归纳在这个父项目下，并且一般来说，都会有重复的jar包共享。<br>所以常用的做法会把重复的 jar 包都放在父项目下进行依赖，那么子项目就无需再去依赖这些重复的 jar 包了。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringBoot学习笔记1/" data-id="cjzr4nhfy000m2gtsaut8e578" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
 
     </footer>
   </div>
@@ -603,73 +807,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/SpringCloud学习（2)/" data-id="cjzr4nhgh00162gtspldt0jkv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/10/SpringCloud学习（2)/" data-id="ck013z6ye000mfgtsl4mezxra" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Markdown-notes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/10/Markdown-notes/" class="article-date">
-  <time datetime="2019-08-10T01:58:29.000Z" itemprop="datePublished">2019-08-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/10/Markdown-notes/">Markdown  notes</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="markdown学习笔记"><a href="#markdown学习笔记" class="headerlink" title="markdown学习笔记"></a>markdown学习笔记</h1><h2 id="Markdown标题"><a href="#Markdown标题" class="headerlink" title="Markdown标题"></a>Markdown标题</h2><ul>
-<li><p>使用=  和 - 标记一级标题和二级标题</p>
-<p>格式如下</p>
-</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我展示的是一级标题</span><br><span class="line">=================</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我展示的是二级标题</span><br><span class="line">-----------------</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>使用#号表示标题</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 一级标题</span></span><br><span class="line"><span class="section">## 二级标题</span></span><br><span class="line"><span class="section">### 三级标题</span></span><br><span class="line"><span class="section">#### 四级标题</span></span><br><span class="line"><span class="section">##### 五级标题</span></span><br><span class="line"><span class="section">###### 六级标题</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Markdown-段落"><a href="#Markdown-段落" class="headerlink" title="Markdown 段落"></a>Markdown 段落</h2><p> Markdown 段落没有特殊的格式，直接编写文字就好，段落的换行是使用两个以上空格加上回车  </p>
-<p>可以在段落后面使用一个空行来表示重新开始一个段落。  </p>
-<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="emphasis">*斜体文本*</span></span><br><span class="line"><span class="emphasis">_斜体文本_</span></span><br><span class="line"><span class="strong">**粗体文本**</span></span><br><span class="line"><span class="strong">__粗体文本__</span></span><br><span class="line"><span class="strong">***粗斜体文本**</span>*</span><br><span class="line"><span class="strong">___粗斜体文本__</span>_</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线：  </p>
-<hr>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="emphasis">***</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span><span class="bullet">* *</span></span><br><span class="line"></span><br><span class="line"><span class="strong">*****</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">- </span>- -</span><br><span class="line"></span><br><span class="line">----------</span><br></pre></td></tr></table></figure>
-
-<h2 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h2><p>段落上的文字要添加删除线，只需要在文字的两端加上两个波浪线 ~~ 即可，</p>
-<p><del>删除的内容</del> </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/10/Markdown-notes/" data-id="cjzr4nhf200032gts52fk3ghp" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
 
     </footer>
   </div>
@@ -682,7 +823,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -696,7 +837,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ElasticSearch/">ElasticSearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/">error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mail/">mail</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/return-brean-continue/">return;brean;continue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typora/">typora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ElasticSearch/">ElasticSearch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MFC/">MFC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL报错/">MySQL报错</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/error/">error</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mail/">mail</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/return-brean-continue/">return;brean;continue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/security/">security</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/typora/">typora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li></ul>
     </div>
   </div>
 
@@ -706,7 +847,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ElasticSearch/" style="font-size: 10px;">ElasticSearch</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 20px;">Mysql</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/WebSocket/" style="font-size: 10px;">WebSocket</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mail/" style="font-size: 10px;">mail</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/return-brean-continue/" style="font-size: 10px;">return;brean;continue</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/typora/" style="font-size: 10px;">typora</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a>
+      <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/ElasticSearch/" style="font-size: 10px;">ElasticSearch</a> <a href="/tags/MFC/" style="font-size: 20px;">MFC</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/MySQL报错/" style="font-size: 10px;">MySQL报错</a> <a href="/tags/Mysql/" style="font-size: 20px;">Mysql</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/SQL/" style="font-size: 10px;">SQL</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 20px;">SpringCloud</a> <a href="/tags/WebSocket/" style="font-size: 10px;">WebSocket</a> <a href="/tags/error/" style="font-size: 20px;">error</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mail/" style="font-size: 10px;">mail</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/return-brean-continue/" style="font-size: 10px;">return;brean;continue</a> <a href="/tags/security/" style="font-size: 10px;">security</a> <a href="/tags/typora/" style="font-size: 10px;">typora</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a>
     </div>
   </div>
 
@@ -728,23 +869,23 @@
       <ul>
         
           <li>
+            <a href="/2019/08/31/C++-Const/">C++</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/MFC框架内容/">MFC框架内容</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/27/vs2019-安装MFC/">vs2019 安装配置MFC</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/25/SpringBoot-Security/">SpringBoot-Security</a>
           </li>
         
           <li>
             <a href="/2019/08/25/日语学习day3/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/25/mail/">mail</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/25/SpringBoot整合ElasticSearch/">SpringBoot整合ElasticSearch</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/24/日语学习day2/">(no title)</a>
           </li>
         
       </ul>
